@@ -63,6 +63,13 @@ partner-contact:
   merges:
     - origin $ODOO_VERSION
 
+mis-builder:
+  defaults:
+    depth: $DEPTH_MERGE
+  remotes:
+    origin: https://github.com/OCA/mis-builder.git
+  target: origin $ODOO_VERSION
+
 l10n-thailand:
   defaults:
     depth: $DEPTH_MERGE

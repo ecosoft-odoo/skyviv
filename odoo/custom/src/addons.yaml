@@ -15,6 +15,9 @@ partner-contact:
   - partner_company_type
   - partner_firstname
 
+mis-builder:
+  - mis_builder
+
 l10n-thailand:
   - l10n_th_fonts
   - l10n_th_amount_to_text

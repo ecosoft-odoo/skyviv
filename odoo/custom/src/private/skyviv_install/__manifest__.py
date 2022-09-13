@@ -14,6 +14,7 @@
         "sale_management",
         "purchase_stock",
         # OCA Module
+        "mis_builder",
         "l10n_th_account_tax",
         "l10n_th_account_tax_expense",
         "l10n_th_account_tax_multi",
