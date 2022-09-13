@@ -69,6 +69,8 @@ mis-builder:
   remotes:
     origin: https://github.com/OCA/mis-builder.git
   target: origin $ODOO_VERSION
+  merges:
+    - origin $ODOO_VERSION
 
 l10n-thailand:
   defaults:
