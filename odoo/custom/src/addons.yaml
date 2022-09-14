@@ -1,29 +1,31 @@
-account-payment:
-  - account_payment_multi_deduction
-
-hr-expense:
-  - hr_expense_advance_clearing
-
-server-ux:
-  - date_range
+mis-builder:
+  - mis_builder
 
 reporting-engine:
   - report_xlsx
   - report_xlsx_helper
 
+server-ux:
+  - date_range
+
+account-financial-tools:
+  - account_asset_management
+  - account_asset_compute_batch
+  - account_asset_number
+
+account-payment:
+  - account_payment_multi_deduction
+
 partner-contact:
   - partner_company_type
   - partner_firstname
 
-mis-builder:
-  - mis_builder
-
 l10n-thailand:
   - l10n_th_fonts
-  - l10n_th_amount_to_text
   - l10n_th_partner
+  - l10n_th_amount_to_text
   - l10n_th_account_tax
-  - l10n_th_account_tax_expense
   - l10n_th_account_tax_multi
   - l10n_th_account_tax_report
   - l10n_th_account_wht_cert_form
+  - l10n_th_account_asset_management
