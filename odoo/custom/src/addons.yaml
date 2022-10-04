@@ -12,6 +12,7 @@ account-financial-tools:
   - account_asset_management
   - account_asset_compute_batch
   - account_asset_number
+  - account_menu
 
 account-payment:
   - account_payment_multi_deduction
