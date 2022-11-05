@@ -63,6 +63,15 @@ account-payment:
     - origin $ODOO_VERSION
     - origin refs/pull/490/head # [14.0][ENH] account_payment_multi_deduction: add analytic on payment register wizard
 
+account-reconcile:
+  defaults:
+    depth: $DEPTH_MERGE
+  remotes:
+    origin: https://github.com/OCA/account-reconcile.git
+  target: origin $ODOO_VERSION
+  merges:
+    - origin $ODOO_VERSION
+
 partner-contact:
   defaults:
     depth: $DEPTH_MERGE
