@@ -33,3 +33,7 @@ l10n-thailand:
   - l10n_th_account_tax_report
   - l10n_th_account_wht_cert_form
   - l10n_th_account_asset_management
+  
+stock-logistics-workflow:
+  - stock_no_negative
+  - stock_valuation_fifo_lot
