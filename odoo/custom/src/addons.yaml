@@ -16,6 +16,9 @@ account-financial-tools:
 
 account-payment:
   - account_payment_multi_deduction
+  
+account-reconcile:
+  - account_reconciliation_widget
 
 partner-contact:
   - partner_company_type
