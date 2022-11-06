@@ -21,6 +21,7 @@
         "account_asset_number",
         "account_reconciliation_widget",
         "stock_valuation_fifo_lot",
+        "purchase_deposit",
         "l10n_th_account_tax",
         "l10n_th_account_tax_multi",
         "l10n_th_account_tax_report",
