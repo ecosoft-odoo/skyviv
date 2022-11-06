@@ -37,3 +37,6 @@ l10n-thailand:
 stock-logistics-workflow:
   - stock_no_negative
   - stock_valuation_fifo_lot
+
+purchase-workflow:
+  - purchase_deposit
