@@ -102,3 +102,12 @@ stock-logistics-workflow:
   merges:
     - origin $ODOO_VERSION
     - origin refs/pull/948/head # [14.0][ADD] stock_valuation_fifo_lot
+    
+purchase-workflow:
+  defaults:
+    depth: $DEPTH_MERGE
+  remotes:
+    origin: https://github.com/OCA/purchase-workflow.git
+  target: origin $ODOO_VERSION
+  merges:
+    - origin $ODOO_VERSION
