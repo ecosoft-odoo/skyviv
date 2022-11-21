@@ -52,6 +52,15 @@ account-financial-tools:
     - origin $ODOO_VERSION
     - origin refs/pull/1234/head # [14.0][ADD] account_asset_compute_batch
     - origin refs/pull/1431/head # [14.0][IMP] account_asset_management: filter profile asset report
+    
+account-financial-reporting:
+  defaults:
+    depth: $DEPTH_MERGE
+  remotes:
+    origin: https://github.com/OCA/account-financial-reporting.git
+  target: origin $ODOO_VERSION
+  merges:
+    - origin $ODOO_VERSION
 
 account-payment:
   defaults:
