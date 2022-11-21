@@ -13,6 +13,9 @@ account-financial-tools:
   - account_asset_compute_batch
   - account_asset_number
   - account_menu
+  
+account-financial-reporting:
+  - account_financial_report
 
 account-payment:
   - account_payment_multi_deduction
