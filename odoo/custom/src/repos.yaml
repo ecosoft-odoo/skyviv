@@ -99,7 +99,6 @@ l10n-thailand:
   merges:
     - origin $ODOO_VERSION
     - origin refs/pull/272/head # l10n_th_account_tax, l10n_th_account_tax_expense, l10n_th_account_tax_multi, l10n_th_account_tax_report, l10n_th_account_wht_cert_form
-    - origin refs/pull/286/head # [14.0][ENH] l10n_th_partner: partner title with standard
     - origin refs/pull/254/head # [14.0][ADD] l10n_th_account_asset_management
     
 stock-logistics-workflow:
