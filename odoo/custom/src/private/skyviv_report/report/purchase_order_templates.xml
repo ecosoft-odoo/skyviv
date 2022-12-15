@@ -178,16 +178,10 @@
                     <strong>Create By</strong>
                 </div>
                 <div class="col-6 text-center">
-                    <t t-if="o.validated">
-                        <p t-esc="o.review_ids[-1].done_by.name" />
-                    </t>
-                    <t t-if="not o.validated">
-                        <p>
-                            <![CDATA[
-                            &nbsp;
-                            ]]>
-                        </p>
-                    </t>
+                    <![CDATA[
+                        &nbsp;
+                    ]]>
+                    <p />
                     <strong>Approver</strong>
                 </div>
             </div>
