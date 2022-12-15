@@ -3,7 +3,7 @@
 
 {
     "name": "SKYVIV: Install",
-    "summary": "Used to install other modules",
+    "summary": "Used to install related modules",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "category": "SKYVIV",
