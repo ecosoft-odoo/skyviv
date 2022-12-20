@@ -173,16 +173,10 @@
             <div class="oe_structure" />
 
             <div class="row" style="margin: 150px 50px 20px;">
+                <div class="col-6 text-center" />
                 <div class="col-6 text-center">
                     <p t-field="o.create_uid" />
                     <strong>Create By</strong>
-                </div>
-                <div class="col-6 text-center">
-                    <![CDATA[
-                        &nbsp;
-                    ]]>
-                    <p />
-                    <strong>Approver</strong>
                 </div>
             </div>
 
