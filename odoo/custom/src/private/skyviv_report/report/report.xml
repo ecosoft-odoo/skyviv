@@ -36,12 +36,12 @@
     </record>
 
     <!-- for Delivery Note/Tax Invoice print button -->
-    <record id="account_invoices_delivery" model="ir.actions.report">
-        <field name="name">Delivery Note/Tax Invoice</field>
+    <record id="account_invoices_tax" model="ir.actions.report">
+        <field name="name">Invoice/Tax Invoice</field>
         <field name="model">account.move</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">skyviv_report.report_invoice_delivery</field>
-        <field name="report_file">skyviv_report.report_invoice_delivery</field>
+        <field name="report_name">skyviv_report.report_invoice_tax</field>
+        <field name="report_file">skyviv_report.report_invoice_tax</field>
         <field name="print_report_name">(object.name)</field>
     </record>
 
