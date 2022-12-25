@@ -14,8 +14,8 @@
             <div class="page">
                 <h2>
                     <span
-                        t-if="o.move_type == 'out_invoice' and o.state == 'posted' and print_delivery"
-                    >Delivery Note/Tax Invoice</span>
+                        t-if="o.move_type == 'out_invoice' and o.state == 'posted' and print_invoice_tax"
+                    >Invoice/Tax Invoice</span>
                     <span
                         t-if="o.move_type == 'out_invoice' and o.state == 'posted' and print_receipt"
                     >Receipt/Tax Invoice</span>
@@ -353,6 +353,16 @@
                         t-field="o.invoice_incoterm_id.code"
                     /> - <span t-field="o.invoice_incoterm_id.name" />
                 </p>
+                <div t-if="print_receipt">
+                    <p>
+                        <strong
+                        >"เอกสารจะสมบรูณ์เมื่อได้รับเงินโอนเข้าบัญชีเรียบร้อยแล้ว"</strong>
+                    </p>
+                    <p>
+                        <strong
+                        >"The document will be complete when the transfer is completed."</strong>
+                    </p>
+                </div>
                 <!-- <div id="qrcode" t-if="o.display_qr_code and o.amount_residual > 0">
                     <p t-if="qr_code_urls.get(o.id)">
                         <strong class="text-center">Scan me with your banking app.</strong><br/><br/>
@@ -363,7 +373,7 @@
         </t>
     </template>
 
-    <template id="report_invoice_delivery">
+    <template id="report_invoice_tax">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t t-set="ncopies" t-value="2" />
@@ -372,7 +382,7 @@
                         t-set="lang"
                         t-value="o.partner_id.lang or o.company_id.partner_id.lang"
                     />
-                    <t t-set="print_delivery" t-value="True" />
+                    <t t-set="print_invoice_tax" t-value="True" />
                     <t t-call="skyviv_report.report_invoice_document" t-lang="lang" />
                 </t>
             </t>

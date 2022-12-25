@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-    <!-- Custom header and footer in external_layout -->
+    <!-- Custom header and footer in external_layout_standard -->
     <template
         id="external_layout_standard_inherit"
         inherit_id="web.external_layout_standard"
@@ -47,6 +47,57 @@
                             /></p>
                         <p>Tax Branch: <span t-field="company.partner_id.branch" /></p>
                     </div>
+                </div>
+            </div>
+        </xpath>
+
+        <!-- Custom Footer Here -->
+        <xpath expr="//div/div[hasclass('text-center')]" position="replace">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <div name="financial_infos">
+                    <span t-field="company.report_footer" />
+                </div>
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page: <span class="page" /> / <span class="topage" />
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Custom header and footer in external_layout_boxed -->
+    <template id="external_layout_boxed_inherit" inherit_id="web.external_layout_boxed">
+        <!-- Custom header here-->
+        <xpath expr="//div[contains(@t-attf-class,'header')]" position="replace">
+            <div
+                t-attf-class="header o_company_#{company.id}_layout"
+                t-att-style="report_header_style"
+            >
+                <div class="o_boxed_header">
+                <div class="row mb8">
+                    <div class="col-6">
+                        <img
+                                t-if="company.logo"
+                                t-att-src="image_data_uri(company.logo)"
+                                alt="Logo"
+                            />
+                    </div>
+                    <div class="col-6 text-right mb4">
+                        <h4 class="mt0" t-field="company.report_header" />
+                        <div name="company_address" class="float-right mb4">
+                            <span
+                                    class="company_address"
+                                    t-field="company.partner_id"
+                                    t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                                />
+                            <p style="margin: 0">Tax ID: <span
+                                        t-field="company.partner_id.vat"
+                                    /></p>
+                            <p>Tax Branch: <span
+                                        t-field="company.partner_id.branch"
+                                    /></p>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
         </xpath>
