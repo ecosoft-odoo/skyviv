@@ -159,7 +159,7 @@
                         <span
                             t-if="doc.state not in ['draft','sent']"
                         >Sale Order # </span>
-                        <span t-if="doc.state in ['draft','sent']">Sale Order # </span>
+                        <span t-if="doc.state in ['draft','sent']">Quotation # </span>
                     </t>
                     <t t-if="env.context.get('proforma', False) or is_pro_forma">
                         <span>Pro-Forma Invoice # </span>
