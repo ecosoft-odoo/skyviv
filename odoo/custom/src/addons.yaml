@@ -7,12 +7,16 @@ reporting-engine:
 
 server-ux:
   - date_range
+  
+server-tools:
+  - base_sequence_option
 
 account-financial-tools:
   - account_asset_management
   - account_asset_compute_batch
   - account_asset_number
   - account_menu
+  - account_sequence_option
   
 account-financial-reporting:
   - account_financial_report
