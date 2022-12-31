@@ -62,7 +62,6 @@ echo ""
 # Update system parameter
 echo "11. Update system parameter"
 $postgres psql -U $postgres_user $database_test -c "update ir_config_parameter set value = 'TEST<br/>({db_name})' where key = 'ribbon.name'"
-$postgres psql -U $postgres_user $database_test -c "update ir_config_parameter set value = 'http://128.199.109.186' where key = 'web.base.url'"
 echo ""
 
 # Copy filestore prod to test
