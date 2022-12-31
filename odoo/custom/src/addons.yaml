@@ -47,3 +47,6 @@ stock-logistics-workflow:
 
 purchase-workflow:
   - purchase_deposit
+  
+web:
+  - web_environment_ribbon
