@@ -9,6 +9,7 @@ server-ux:
   - date_range
   
 server-tools:
+  - auto_backup
   - base_sequence_option
 
 account-financial-tools:
