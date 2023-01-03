@@ -43,6 +43,7 @@
         <field name="report_name">skyviv_report.report_invoice_tax</field>
         <field name="report_file">skyviv_report.report_invoice_tax</field>
         <field name="print_report_name">(object.name)</field>
+        <field name="binding_type">report</field>
     </record>
 
     <record id="account_invoices_receipt" model="ir.actions.report">
@@ -52,6 +53,7 @@
         <field name="report_name">skyviv_report.report_invoice_receipt</field>
         <field name="report_file">skyviv_report.report_invoice_receipt</field>
         <field name="print_report_name">(object.name)</field>
+        <field name="binding_type">report</field>
     </record>
 
 </odoo>
