@@ -80,7 +80,7 @@ services:
       FAST_MODE: "true"
       DOCS_DIRECTORY: "/mkdocs"
     volumes:
-      - /opt/tev-docs:/mkdocs
+      - /opt/skyviv-docs:/mkdocs
     networks:
       mynetwork:
         ipv4_address: 172.20.0.13
