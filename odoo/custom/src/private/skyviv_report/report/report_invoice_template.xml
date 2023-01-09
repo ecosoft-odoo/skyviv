@@ -369,7 +369,7 @@
                         <img class="border border-dark rounded" t-att-src="qr_code_urls[o.id]"/>
                     </p>
                 </div> -->
-                <div class="row">
+                <div class="row" style="margin-top: 120px;">
                     <div class="col-6 text-center">
                         <![CDATA[
                         &nbsp;
@@ -385,7 +385,7 @@
                         <strong>Receiver Signature</strong>
                     </div>
                     <div class="col-6 text-center">
-                        <p t-field="o.company_id.name" />
+                        <p>ในนาม <span t-field="o.company_id.name" /></p>
                         <![CDATA[
                         &nbsp;
                         ]]>
