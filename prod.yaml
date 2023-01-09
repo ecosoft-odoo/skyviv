@@ -69,6 +69,21 @@ services:
     networks:
       mynetwork:
         ipv4_address: 172.20.0.12
+        
+  mkdocs:
+    image: polinux/mkdocs:1.2.3
+    restart: always
+    ports:
+      - "0.0.0.0:8000:8000"
+    environment:
+      LIVE_RELOAD_SUPPORT: "true"
+      FAST_MODE: "true"
+      DOCS_DIRECTORY: "/mkdocs"
+    volumes:
+      - /opt/skyviv-docs:/mkdocs
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.13
 
 networks:
   mynetwork:
