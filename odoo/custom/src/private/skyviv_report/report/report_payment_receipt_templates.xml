@@ -13,7 +13,9 @@
             </t>
             <div class="page">
                 <h3><strong>
-                        Receipt: <span t-field="o.name" />
+                        <span t-if="print_tax">Receipt/Tax Invoice:</span>
+                        <span t-if="not print_tax">Receipt:</span>
+                        <span t-field="o.name" />
                         <t t-if="i == 0">(ORIGINAL)</t>
                         <t t-else="">(COPY)</t>
                     </strong>
@@ -88,6 +90,25 @@
                         t-set="lang"
                         t-value="o.partner_id.lang or o.company_id.partner_id.lang"
                     />
+                    <t
+                        t-call="skyviv_report.report_payment_receipt_document"
+                        t-lang="lang"
+                    />
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_payment_receipt_tax_invoice">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="ncopies" t-value="2" />
+                <t t-foreach="range(ncopies)" t-as="i">
+                    <t
+                        t-set="lang"
+                        t-value="o.partner_id.lang or o.company_id.partner_id.lang"
+                    />
+                    <t t-set="print_tax" t-value="True" />
                     <t
                         t-call="skyviv_report.report_payment_receipt_document"
                         t-lang="lang"
