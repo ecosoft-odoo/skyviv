@@ -115,6 +115,15 @@
         </xpath>
     </template>
 
+    <template id="address_layout_inherit" inherit_id="web.address_layout">
+        <xpath expr="//t[@t-set='colclass']" position="replace">
+            <t
+                t-set="colclass"
+                t-value="('col-md-5' if report_type == 'html' else 'col-5') + ' ms-auto'"
+            />
+        </xpath>
+    </template>
+
     <template id="report_saleorder_document">
         <t t-call="web.external_layout">
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
