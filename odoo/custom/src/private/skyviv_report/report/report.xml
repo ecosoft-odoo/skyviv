@@ -24,6 +24,21 @@
         <field name="print_report_name">'Receipt - %s' % (object.name)</field>
     </record>
 
+    <!-- for print Payment receipt/tax invoice -->
+    <record id="action_report_payment_receipt_tax_invoice" model="ir.actions.report">
+        <field name="name">Receipt/Tax Invoice</field>
+        <field name="model">account.payment</field>
+        <field
+            name="report_name"
+        >skyviv_report.report_payment_receipt_tax_invoice</field>
+        <field
+            name="report_file"
+        >skyviv_report.report_payment_receipt_tax_invoice</field>
+        <field name="print_report_name">'Receipt - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="account.model_account_payment" />
+        <field name="binding_type">report</field>
+    </record>
+
     <record id="account.account_invoices" model="ir.actions.report">
         <field name="name">Invoices</field>
         <field name="report_type">qweb-pdf</field>
@@ -35,6 +50,28 @@
         >(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
     </record>
 
+    <record id="account_invoices_receipt" model="ir.actions.report">
+        <field name="name">Receipt</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">skyviv_report.report_invoice_receipt</field>
+        <field name="report_file">skyviv_report.report_invoice_receipt</field>
+        <field name="print_report_name">(object.name)</field>
+        <field name="binding_model_id" ref="account.model_account_move" />
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="account_invoices_receipt_tax" model="ir.actions.report">
+        <field name="name">Tax Invoice</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">skyviv_report.report_invoice_receipt_tax</field>
+        <field name="report_file">skyviv_report.report_invoice_receipt_tax</field>
+        <field name="print_report_name">(object.name)</field>
+        <field name="binding_model_id" ref="account.model_account_move" />
+        <field name="binding_type">report</field>
+    </record>
+
     <!-- for Delivery Note/Tax Invoice print button -->
     <record id="account_invoices_tax" model="ir.actions.report">
         <field name="name">Invoice/Tax Invoice</field>
@@ -43,24 +80,7 @@
         <field name="report_name">skyviv_report.report_invoice_tax</field>
         <field name="report_file">skyviv_report.report_invoice_tax</field>
         <field name="print_report_name">(object.name)</field>
-        <field
-            name="binding_model_id"
-            ref="account.model_account_move"
-        />
-        <field name="binding_type">report</field>
-    </record>
-
-    <record id="account_invoices_receipt" model="ir.actions.report">
-        <field name="name">Receipt/Tax Invoice</field>
-        <field name="model">account.move</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">skyviv_report.report_invoice_receipt</field>
-        <field name="report_file">skyviv_report.report_invoice_receipt</field>
-        <field name="print_report_name">(object.name)</field>
-        <field
-            name="binding_model_id"
-            ref="account.model_account_move"
-        />
+        <field name="binding_model_id" ref="account.model_account_move" />
         <field name="binding_type">report</field>
     </record>
 
