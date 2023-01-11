@@ -97,26 +97,26 @@
                 <table class="table table-sm o_main_table" name="invoice_line_table">
                     <thead>
                         <tr>
-                            <th name="th_description" class="text-left"><span
+                            <th name="th_description" class="text-center"><span
                                 >Description</span></th>
-                            <th name="th_quantity" class="text-right"><span
+                            <th name="th_quantity" class="text-center"><span
                                 >Quantity</span></th>
                             <th
                                 name="th_priceunit"
-                                t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
+                                t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
                             ><span>Unit Price</span></th>
                             <th
                                 name="th_price_unit"
                                 t-if="display_discount"
-                                t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
+                                t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
                             >
                                 <span>Disc.%</span>
                             </th>
-                            <th
+                            <!-- <th
                                 name="th_taxes"
                                 t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
-                            ><span>Taxes</span></th>
-                            <th name="th_subtotal" class="text-right">
+                            ><span>Taxes</span></th> -->
+                            <th name="th_subtotal" class="text-center">
                                 <span
                                     groups="account.group_show_line_subtotals_tax_excluded"
                                 >Amount</span>
@@ -180,14 +180,14 @@
                                             t-field="line.discount"
                                         />
                                     </td>
-                                    <td
+                                    <!-- <td
                                         t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
                                     >
                                         <span
                                             t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_ids))"
                                             id="line_tax_ids"
                                         />
-                                    </td>
+                                    </td> -->
                                     <td class="text-right o_price_total">
                                         <span
                                             class="text-nowrap"
