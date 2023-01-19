@@ -396,7 +396,12 @@
                     </div>
                 </div>
 
-                <div t-if="doc.signature" class="mt32 ml64 mr4" name="signature">
+                <div
+                    t-if="doc.signature"
+                    class="mt32 ml64 mr4"
+                    name="signature"
+                    style="page-break-inside: avoid;"
+                >
                     <div class="offset-8">
                         <strong>Signature</strong>
                     </div>
@@ -411,7 +416,12 @@
                     </div>
                 </div>
 
-                <div t-if="not doc.signature" class="mt32 ml64 mr4" name="signature">
+                <div
+                    t-if="not doc.signature"
+                    class="mt32 ml64 mr4"
+                    name="signature"
+                    style="page-break-inside: avoid;"
+                >
                     <div class="offset-8">
                         <![CDATA[
                         &nbsp;

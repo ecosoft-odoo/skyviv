@@ -172,7 +172,7 @@
             <p t-field="o.notes" />
             <div class="oe_structure" />
 
-            <div class="row" style="margin: 150px 50px 20px;">
+            <div class="row" style="margin: 150px 50px 20px; page-break-inside: avoid;">
                 <div class="col-6 text-center" />
                 <div class="col-6 text-center">
                     <p t-field="o.create_uid" />

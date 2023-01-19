@@ -230,7 +230,7 @@
                     </div>
                 </div>
 
-                <div class="row" style="margin-top: 100px;">
+                <div class="row" style="margin-top: 100px; page-break-inside: avoid;">
                     <div class="col-6 text-center">
                         <![CDATA[
                         &nbsp;
