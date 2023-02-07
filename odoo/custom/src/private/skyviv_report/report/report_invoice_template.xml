@@ -263,35 +263,22 @@
                                         />
                                     </td>
                                 </tr>
-                                <t t-foreach="o.amount_by_group" t-as="amount_by_group">
-                                    <tr style="">
+                                <tr>
+                                    <td>VAT 7%</td>
+                                    <td class="text-right">
+                                        <t t-set="tax_amount" t-value="0" />
                                         <t
-                                            t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and float_compare(o.amount_untaxed, amount_by_group[2], precision_rounding=o.currency_id.rounding) == 0"
+                                            t-foreach="o.reconciled_invoice_ids"
+                                            t-as="i"
                                         >
-                                            <td><span
-                                                    class="text-nowrap"
-                                                    t-esc="amount_by_group[0]"
-                                                /></td>
-                                            <td class="text-right o_price_total">
-                                                <span
-                                                    class="text-nowrap"
-                                                    t-esc="amount_by_group[3]"
-                                                />
-                                            </td>
+                                            <t
+                                                t-set="tax_amount"
+                                                t-value="tax_amount+i.amount_tax"
+                                            />
                                         </t>
-                                        <t t-else="">
-                                            <td>
-                                                <span t-esc="amount_by_group[0]" />
-                                            </td>
-                                            <td class="text-right o_price_total">
-                                                <span
-                                                    class="text-nowrap"
-                                                    t-esc="amount_by_group[3]"
-                                                />
-                                            </td>
-                                        </t>
-                                    </tr>
-                                </t>
+                                        <span t-esc="'%.2f'%tax_amount" />
+                                    </td>
+                                </tr>
                                 <tr class="border-black o_total">
                                     <td><strong>Total</strong></td>
                                     <td class="text-right">
