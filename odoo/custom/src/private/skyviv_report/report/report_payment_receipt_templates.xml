@@ -62,7 +62,7 @@
                             <th name="th_subtotal" class="text-center">
                                 <span
                                     groups="account.group_show_line_subtotals_tax_excluded"
-                                >Amount</span>
+                                >Amount (BAHT)</span>
                                 <span
                                     groups="account.group_show_line_subtotals_tax_included"
                                 >Total Price</span>
@@ -127,11 +127,13 @@
                                         <span
                                             class="text-nowrap"
                                             t-field="line.price_subtotal"
+                                            t-options="{'widget': 'float', 'precision': 2}"
                                             groups="account.group_show_line_subtotals_tax_excluded"
                                         />
                                         <span
                                             class="text-nowrap"
                                             t-field="line.price_total"
+                                            t-options="{'widget': 'float', 'precision': 2}"
                                             groups="account.group_show_line_subtotals_tax_included"
                                         />
                                     </td>
@@ -196,7 +198,6 @@
                                             />
                                         </t>
                                         <span t-esc="'%.2f'%untaxed" />
-                                        <span t-field="o.currency_id.symbol" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -213,7 +214,6 @@
                                             />
                                         </t>
                                         <span t-esc="'%.2f'%tax_amount" />
-                                        <span t-field="o.currency_id.symbol" />
                                     </td>
                                 </tr>
                                 <tr class="border-black o_total">
@@ -222,6 +222,7 @@
                                         <span
                                             class="text-nowrap"
                                             t-field="o.amount_total"
+                                            t-options="{'widget': 'float', 'precision': 2}"
                                         />
                                     </td>
                                 </tr>

@@ -21,7 +21,7 @@
                     >Receipt</span>
                     <span
                         t-if="o.move_type == 'out_invoice' and o.state == 'posted' and print_tax"
-                    >Tax Invoice</span>
+                    >Receipt/Tax Invoice</span>
                     <span
                         t-if="o.move_type == 'out_invoice' and o.state == 'posted' and print_with_payments"
                     >Invoice</span>
@@ -34,8 +34,13 @@
                     <span t-if="o.move_type == 'out_refund'">Credit Note</span>
                     <span t-if="o.move_type == 'in_refund'">Vendor Credit Note</span>
                     <span t-if="o.move_type == 'in_invoice'">Vendor Bill</span>
-                    <span t-if="print_receipt">R<span t-field="o.name" /></span>
-                    <span t-if="o.name != '/' and not print_receipt" t-field="o.name" />
+                    <span t-if="print_receipt or print_tax">R<span
+                            t-field="o.name"
+                        /></span>
+                    <span
+                        t-if="o.name != '/' and not print_receipt and not print_tax"
+                        t-field="o.name"
+                    />
                     <t t-if="i == 0">(ORIGINAL)</t>
                     <t t-else="">(COPY)</t>
                 </h2>
@@ -119,7 +124,7 @@
                             <th name="th_subtotal" class="text-center">
                                 <span
                                     groups="account.group_show_line_subtotals_tax_excluded"
-                                >Amount</span>
+                                >Amount (BAHT)</span>
                                 <span
                                     groups="account.group_show_line_subtotals_tax_included"
                                 >Total Price</span>
@@ -192,11 +197,13 @@
                                         <span
                                             class="text-nowrap"
                                             t-field="line.price_subtotal"
+                                            t-options="{'widget': 'float', 'precision': 2}"
                                             groups="account.group_show_line_subtotals_tax_excluded"
                                         />
                                         <span
                                             class="text-nowrap"
                                             t-field="line.price_total"
+                                            t-options="{'widget': 'float', 'precision': 2}"
                                             groups="account.group_show_line_subtotals_tax_included"
                                         />
                                     </td>
@@ -250,7 +257,10 @@
                                 <tr class="border-black o_subtotal" style="">
                                     <td><strong>Subtotal</strong></td>
                                     <td class="text-right">
-                                        <span t-field="o.amount_untaxed" />
+                                        <span
+                                            t-field="o.amount_untaxed"
+                                            t-options="{'widget': 'float', 'precision': 2}"
+                                        />
                                     </td>
                                 </tr>
                                 <t t-foreach="o.amount_by_group" t-as="amount_by_group">
@@ -288,6 +298,7 @@
                                         <span
                                             class="text-nowrap"
                                             t-field="o.amount_total"
+                                            t-options="{'widget': 'float', 'precision': 2}"
                                         />
                                     </td>
                                 </tr>
@@ -313,16 +324,19 @@
                                                 <td class="text-right">
                                                     <span
                                                         t-esc="payment_vals['amount']"
-                                                        t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                                        t-options="{'widget': 'float', 'precision': 2}"
                                                     />
                                                 </td>
                                             </tr>
                                         </t>
                                         <t t-if="len(payments_vals) > 0">
-                                            <tr class="border-black">
+                                            <tr class="border-black o_total">
                                                 <td><strong>Amount Due</strong></td>
                                                 <td class="text-right">
-                                                    <span t-field="o.amount_residual" />
+                                                    <span
+                                                        t-field="o.amount_residual"
+                                                        t-options="{'widget': 'float', 'precision': 2}"
+                                                    />
                                                 </td>
                                             </tr>
                                         </t>
@@ -371,7 +385,23 @@
                     </p>
                 </div> -->
                 <div class="row" style="margin-top: 50px; page-break-inside: avoid;">
-                    <div class="col-6 text-center">
+                    <div t-if="print_receipt or print_tax" class="col-6 text-center">
+                        <p
+                        >เงินโอน/เช็ค/เลขที่............ วันที่.......................</p>
+                        <p
+                        >ธนาคาร.................................... สาขา....................</p>
+                        <![CDATA[
+                        &nbsp;
+                        ]]>
+                        <hr
+                            style="border-top: dotted 1px; margin-left:55px; margin-right:55px;"
+                        />
+                        <strong>ผู้รับเงิน</strong>
+                    </div>
+                    <div
+                        t-if="print_with_payments or print_invoice_tax"
+                        class="col-6 text-center"
+                    >
                         <![CDATA[
                         &nbsp;
                         ]]>
