@@ -275,7 +275,8 @@
                                             <td class="text-right o_price_total">
                                                 <span
                                                     class="text-nowrap"
-                                                    t-esc="amount_by_group[3]"
+                                                    t-esc="amount_by_group[1]"
+                                                    t-options="{'widget': 'float', 'precision': 2}"
                                                 />
                                             </td>
                                         </t>
@@ -286,7 +287,8 @@
                                             <td class="text-right o_price_total">
                                                 <span
                                                     class="text-nowrap"
-                                                    t-esc="amount_by_group[3]"
+                                                    t-esc="amount_by_group[1]"
+                                                    t-options="{'widget': 'float', 'precision': 2}"
                                                 />
                                             </td>
                                         </t>
