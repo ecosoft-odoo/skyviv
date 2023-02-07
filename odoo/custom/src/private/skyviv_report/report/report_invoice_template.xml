@@ -387,10 +387,16 @@
                 <div class="row" style="margin-top: 50px; page-break-inside: avoid;">
                     <div t-if="print_receipt or print_tax" class="col-6 text-center">
                         <p
-                        >เงินโอน/เช็ค/เลขที่.................... วันที่....................</p>
-                        <p>ธนาคาร.................... สาขา....................</p>
-                        <p>..............................</p>
-                        <strong>Receiver Signature</strong>
+                        >เงินโอน/เช็ค/เลขที่............ วันที่.......................</p>
+                        <p
+                        >ธนาคาร.................................... สาขา....................</p>
+                        <![CDATA[
+                        &nbsp;
+                        ]]>
+                        <hr
+                            style="border-top: dotted 1px; margin-left:55px; margin-right:55px;"
+                        />
+                        <strong>ผู้รับเงิน</strong>
                     </div>
                     <div
                         t-if="print_with_payments or print_invoice_tax"
