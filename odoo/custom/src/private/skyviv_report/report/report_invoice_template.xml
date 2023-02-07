@@ -324,16 +324,19 @@
                                                 <td class="text-right">
                                                     <span
                                                         t-esc="payment_vals['amount']"
-                                                        t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                                        t-options="{'widget': 'float', 'precision': 2}"
                                                     />
                                                 </td>
                                             </tr>
                                         </t>
                                         <t t-if="len(payments_vals) > 0">
-                                            <tr class="border-black">
+                                            <tr class="border-black o_total">
                                                 <td><strong>Amount Due</strong></td>
                                                 <td class="text-right">
-                                                    <span t-field="o.amount_residual" />
+                                                    <span
+                                                        t-field="o.amount_residual"
+                                                        t-options="{'widget': 'float', 'precision': 2}"
+                                                    />
                                                 </td>
                                             </tr>
                                         </t>
