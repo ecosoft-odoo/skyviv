@@ -21,7 +21,7 @@
                     >Receipt</span>
                     <span
                         t-if="o.move_type == 'out_invoice' and o.state == 'posted' and print_tax"
-                    >Tax Invoice</span>
+                    >Receipt/Tax Invoice</span>
                     <span
                         t-if="o.move_type == 'out_invoice' and o.state == 'posted' and print_with_payments"
                     >Invoice</span>
@@ -34,8 +34,13 @@
                     <span t-if="o.move_type == 'out_refund'">Credit Note</span>
                     <span t-if="o.move_type == 'in_refund'">Vendor Credit Note</span>
                     <span t-if="o.move_type == 'in_invoice'">Vendor Bill</span>
-                    <span t-if="print_receipt">R<span t-field="o.name" /></span>
-                    <span t-if="o.name != '/' and not print_receipt" t-field="o.name" />
+                    <span t-if="print_receipt or print_tax">R<span
+                            t-field="o.name"
+                        /></span>
+                    <span
+                        t-if="o.name != '/' and not print_receipt and not print_tax"
+                        t-field="o.name"
+                    />
                     <t t-if="i == 0">(ORIGINAL)</t>
                     <t t-else="">(COPY)</t>
                 </h2>
@@ -371,7 +376,17 @@
                     </p>
                 </div> -->
                 <div class="row" style="margin-top: 50px; page-break-inside: avoid;">
-                    <div class="col-6 text-center">
+                    <div t-if="print_receipt or print_tax" class="col-6 text-center">
+                        <p
+                        >เงินโอน/เช็ค/เลขที่.................... วันที่....................</p>
+                        <p>ธนาคาร.................... สาขา....................</p>
+                        <p>..............................</p>
+                        <strong>Receiver Signature</strong>
+                    </div>
+                    <div
+                        t-if="print_with_payments or print_invoice_tax"
+                        class="col-6 text-center"
+                    >
                         <![CDATA[
                         &nbsp;
                         ]]>
