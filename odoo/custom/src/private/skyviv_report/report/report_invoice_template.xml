@@ -124,20 +124,7 @@
                             <th name="th_subtotal" class="text-center">
                                 <span
                                     groups="account.group_show_line_subtotals_tax_excluded"
-                                    t-if="o.currency_id.name == 'THB'"
-                                >Amount (BAHT)</span>
-                                <span
-                                    groups="account.group_show_line_subtotals_tax_excluded"
-                                    t-if="o.currency_id.name == 'USD'"
-                                >Amount (USD)</span>
-                                <span
-                                    groups="account.group_show_line_subtotals_tax_excluded"
-                                    t-if="o.currency_id.name == 'CHF'"
-                                >Amount (CHF)</span>
-                                <span
-                                    groups="account.group_show_line_subtotals_tax_excluded"
-                                    t-if="o.currency_id.name == 'EUR'"
-                                >Amount (EUR)</span>
+                                >Amount (<span t-field="o.currency_id.name" />)</span>
                                 <span
                                     groups="account.group_show_line_subtotals_tax_included"
                                 >Total Price</span>
