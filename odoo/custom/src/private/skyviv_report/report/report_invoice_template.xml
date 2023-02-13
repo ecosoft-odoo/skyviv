@@ -124,7 +124,7 @@
                             <th name="th_subtotal" class="text-center">
                                 <span
                                     groups="account.group_show_line_subtotals_tax_excluded"
-                                >Amount (<span t-field="o.currency_id.name" />)</span>
+                                >Amount (BAHT)</span>
                                 <span
                                     groups="account.group_show_line_subtotals_tax_included"
                                 >Total Price</span>
