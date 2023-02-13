@@ -124,7 +124,20 @@
                             <th name="th_subtotal" class="text-center">
                                 <span
                                     groups="account.group_show_line_subtotals_tax_excluded"
+                                    t-if="o.currency_id.name == 'THB'"
                                 >Amount (BAHT)</span>
+                                <span
+                                    groups="account.group_show_line_subtotals_tax_excluded"
+                                    t-if="o.currency_id.name == 'USD'"
+                                >Amount (USD)</span>
+                                <span
+                                    groups="account.group_show_line_subtotals_tax_excluded"
+                                    t-if="o.currency_id.name == 'CHF'"
+                                >Amount (CHF)</span>
+                                <span
+                                    groups="account.group_show_line_subtotals_tax_excluded"
+                                    t-if="o.currency_id.name == 'EUR'"
+                                >Amount (EUR)</span>
                                 <span
                                     groups="account.group_show_line_subtotals_tax_included"
                                 >Total Price</span>
@@ -271,27 +284,23 @@
                                             <td><span
                                                     class="text-nowrap"
                                                     t-esc="amount_by_group[0]"
-                                                    t-options="{'widget': 'float', 'precision': 2}"
                                                 /></td>
                                             <td class="text-right o_price_total">
                                                 <span
                                                     class="text-nowrap"
-                                                    t-esc="amount_by_group[3]"
+                                                    t-esc="amount_by_group[1]"
                                                     t-options="{'widget': 'float', 'precision': 2}"
                                                 />
                                             </td>
                                         </t>
                                         <t t-else="">
                                             <td>
-                                                <span
-                                                    t-esc="amount_by_group[0]"
-                                                    t-options="{'widget': 'float', 'precision': 2}"
-                                                />
+                                                <span t-esc="amount_by_group[0]" />
                                             </td>
                                             <td class="text-right o_price_total">
                                                 <span
                                                     class="text-nowrap"
-                                                    t-esc="amount_by_group[3]"
+                                                    t-esc="amount_by_group[1]"
                                                     t-options="{'widget': 'float', 'precision': 2}"
                                                 />
                                             </td>
