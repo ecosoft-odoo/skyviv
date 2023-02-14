@@ -231,21 +231,21 @@
                     </div>
                 </div>
 
-                <div class="row" style="margin-top: 100px; page-break-inside: avoid;">
+                <div class="row" style="margin-top: 50px; page-break-inside: avoid;">
                     <div class="col-6 text-center">
+                        <p
+                        >เงินโอน/เช็ค/เลขที่............ วันที่.......................</p>
+                        <p
+                        >ธนาคาร.................................... สาขา....................</p>
                         <![CDATA[
                         &nbsp;
                         ]]>
-                        <p />
-                        <![CDATA[
-                        &nbsp;
-                        ]]>
-                        <p />
-                        <![CDATA[
-                        &nbsp;
-                        ]]>
-                        <strong>Receiver Signature</strong>
+                        <hr
+                            style="border-top: dotted 1px; margin-left:55px; margin-right:55px;"
+                        />
+                        <strong>ผู้รับเงิน</strong>
                     </div>
+
                     <div class="col-6 text-center">
                         <p>ในนาม <span t-field="o.company_id.name" /></p>
                         <![CDATA[
