@@ -197,7 +197,10 @@
                                                 t-value="untaxed+i.amount_untaxed"
                                             />
                                         </t>
-                                        <span t-esc="'%.2f'%untaxed" />
+                                        <span
+                                            t-esc="untaxed"
+                                            t-options="{'widget': 'float', 'precision': 2}"
+                                        />
                                     </td>
                                 </tr>
                                 <tr>
@@ -213,7 +216,10 @@
                                                 t-value="tax_amount+i.amount_tax"
                                             />
                                         </t>
-                                        <span t-esc="'%.2f'%tax_amount" />
+                                        <span
+                                            t-esc="tax_amount"
+                                            t-options="{'widget': 'float', 'precision': 2}"
+                                        />
                                     </td>
                                 </tr>
                                 <tr class="border-black o_total">
