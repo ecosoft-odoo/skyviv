@@ -73,7 +73,7 @@
                         <t t-set="current_subtotal" t-value="0" />
                         <t
                             t-set="lines"
-                            t-value="o.reconciled_invoice_ids.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"
+                            t-value="o.reconciled_invoice_ids.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True) + o.reconciled_bill_ids.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"
                         />
 
                         <t t-foreach="lines" t-as="line">
@@ -189,7 +189,7 @@
                                     <td class="text-right">
                                         <t t-set="untaxed" t-value="0" />
                                         <t
-                                            t-foreach="o.reconciled_invoice_ids"
+                                            t-foreach="o.reconciled_invoice_ids + o.reconciled_bill_ids"
                                             t-as="i"
                                         >
                                             <t
@@ -205,7 +205,7 @@
                                     <td class="text-right">
                                         <t t-set="tax_amount" t-value="0" />
                                         <t
-                                            t-foreach="o.reconciled_invoice_ids"
+                                            t-foreach="o.reconciled_invoice_ids + o.reconciled_bill_ids"
                                             t-as="i"
                                         >
                                             <t
