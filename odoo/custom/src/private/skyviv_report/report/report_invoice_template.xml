@@ -1,18 +1,59 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="report_invoice_document">
-        <t t-call="web.external_layout">
-            <t t-set="o" t-value="o.with_context(lang=lang)" />
-            <t t-set="address">
-                <div
-                    t-field="o.partner_id"
-                    t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
-                />
-                <p style="margin: 0">Tax ID: <span t-field="o.partner_id.vat" /></p>
-                <p>Tax Branch: <span t-field="o.partner_id.branch" /></p>
-            </t>
-            <div class="page">
-                <h2>
+        <div class="page">
+            <!-- header -->
+            <div class="header">
+                <div class="row">
+                    <div class="col-8">
+                        <img
+                            t-if="o.company_id.logo"
+                            t-att-src="image_data_uri(o.company_id.logo)"
+                            style="max-height: 120px;"
+                            alt="Logo"
+                        />
+                    </div>
+                    <div
+                        class="col-9 text-right"
+                        style="margin-top:22px;"
+                        t-field="o.company_id.report_header"
+                        name="moto"
+                    />
+                    <div class="col-4 text-right">
+                        <div t-field="o.company_id.name" />
+                        <div t-field="o.company_id.street" />
+                        <div t-field="o.company_id.street2" />
+                        <div>
+                            <span t-field="o.company_id.city" />
+                            <span t-field="o.company_id.state_id.name" />
+                            <span t-field="o.company_id.zip" />
+                        </div>
+                        <p style="margin: 0">Tax ID: <span
+                                t-field="o.company_id.vat"
+                            /></p>
+                        <p>Tax Branch: <span t-field="o.company_id.branch" /></p>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid #C5C5C5; margin-bottom: 50px;" />
+                <!-- Partner detail -->
+                <div class="row">
+                    <div class="col-4">
+                        <div t-field="o.partner_id.name" />
+                        <div t-field="o.partner_id.street" />
+                        <div t-field="o.partner_id.street2" />
+                        <div>
+                            <span t-field="o.partner_id.city" />
+                            <span t-field="o.partner_id.state_id.name" />
+                            <span t-field="o.partner_id.zip" />
+                        </div>
+                        <p style="margin: 0">Tax ID: <span
+                                t-field="o.partner_id.vat"
+                            /></p>
+                        <p>Tax Branch: <span t-field="o.partner_id.branch" /></p>
+                    </div>
+                    <div class="col-8" />
+                </div>
+                <h2 style="color: #DAA520;">
                     <span
                         t-if="o.move_type == 'out_invoice' and o.state == 'posted' and print_invoice_tax"
                     >Invoice/Tax Invoice</span>
@@ -93,35 +134,44 @@
                         <p class="m-0" t-field="o.ref" />
                     </div>
                 </div>
-
+            </div>
+            <div class="article">
                 <t
                     t-set="display_discount"
                     t-value="any(l.discount for l in o.invoice_line_ids)"
                 />
 
-                <table class="table table-sm o_main_table" name="invoice_line_table">
+                <table class="table table-sm" style="border: 1px solid black;">
                     <thead>
                         <tr>
-                            <th name="th_description" class="text-center"><span
-                                >Description</span></th>
-                            <th name="th_quantity" class="text-center"><span
-                                >Quantity</span></th>
+                            <th
+                                name="th_description"
+                                class="text-center"
+                                style="border: 1px solid black;"
+                            ><span>Description</span></th>
+                            <th
+                                name="th_quantity"
+                                class="text-center"
+                                style="border: 1px solid black;"
+                            ><span>Quantity</span></th>
                             <th
                                 name="th_priceunit"
                                 t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
+                                style="border: 1px solid black;"
                             ><span>Unit Price</span></th>
                             <th
                                 name="th_price_unit"
                                 t-if="display_discount"
                                 t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
+                                style="border: 1px solid black;"
                             >
                                 <span>Disc.%</span>
                             </th>
-                            <!-- <th
-                                name="th_taxes"
-                                t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
-                            ><span>Taxes</span></th> -->
-                            <th name="th_subtotal" class="text-center">
+                            <th
+                                name="th_subtotal"
+                                class="text-center"
+                                style="border: 1px solid black;"
+                            >
                                 <span
                                     groups="account.group_show_line_subtotals_tax_excluded"
                                 >Amount (BAHT)</span>
@@ -157,11 +207,17 @@
                                     t-if="not line.display_type"
                                     name="account_invoice_line_accountable"
                                 >
-                                    <td name="account_invoice_line_name"><span
+                                    <td
+                                        name="account_invoice_line_name"
+                                        style="border: 1px solid black;"
+                                    ><span
                                             t-field="line.name"
                                             t-options="{'widget': 'text'}"
                                         /></td>
-                                    <td class="text-right">
+                                    <td
+                                        class="text-right"
+                                        style="border: 1px solid black;"
+                                    >
                                         <span t-field="line.quantity" />
                                         <span
                                             t-field="line.product_uom_id"
@@ -170,6 +226,7 @@
                                     </td>
                                     <td
                                         t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
+                                        style="border: 1px solid black;"
                                     >
                                         <span
                                             class="text-nowrap"
@@ -179,21 +236,17 @@
                                     <td
                                         t-if="display_discount"
                                         t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
+                                        style="border: 1px solid black;"
                                     >
                                         <span
                                             class="text-nowrap"
                                             t-field="line.discount"
                                         />
                                     </td>
-                                    <!-- <td
-                                        t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
+                                    <td
+                                        class="text-right o_price_total"
+                                        style="border: 1px solid black; background-color: #DCDCDC;"
                                     >
-                                        <span
-                                            t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_ids))"
-                                            id="line_tax_ids"
-                                        />
-                                    </td> -->
-                                    <td class="text-right o_price_total">
                                         <span
                                             class="text-nowrap"
                                             t-field="line.price_subtotal"
@@ -209,7 +262,7 @@
                                     </td>
                                 </t>
                                 <t t-if="line.display_type == 'line_section'">
-                                    <td colspan="99">
+                                    <td colspan="99" style="border: 1px solid black;">
                                         <span
                                             t-field="line.name"
                                             t-options="{'widget': 'text'}"
@@ -219,7 +272,7 @@
                                     <t t-set="current_subtotal" t-value="0" />
                                 </t>
                                 <t t-if="line.display_type == 'line_note'">
-                                    <td colspan="99">
+                                    <td colspan="99" style="border: 1px solid black;">
                                         <span
                                             t-field="line.name"
                                             t-options="{'widget': 'text'}"
@@ -232,7 +285,7 @@
                                 t-if="current_section and (line_last or lines[line_index+1].display_type == 'line_section')"
                             >
                                 <tr class="is-subtotal text-right">
-                                    <td colspan="99">
+                                    <td colspan="99" style="border: 1px solid black;">
                                         <strong class="mr16">Subtotal</strong>
                                         <span
                                             t-esc="current_subtotal"
@@ -252,10 +305,12 @@
                         >
                             <table
                                 class="table table-sm"
-                                style="page-break-inside: avoid;"
+                                style="page-break-inside: avoid; border: 1px solid black;"
                             >
                                 <tr class="border-black o_subtotal" style="">
-                                    <td><strong>Subtotal</strong></td>
+                                    <td><strong
+                                            style="color: #DAA520;"
+                                        >Subtotal</strong></td>
                                     <td class="text-right">
                                         <span
                                             t-field="o.amount_untaxed"
@@ -268,11 +323,14 @@
                                         <t
                                             t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and float_compare(o.amount_untaxed, amount_by_group[2], precision_rounding=o.currency_id.rounding) == 0"
                                         >
-                                            <td><span
+                                            <td style="border: 1px solid black;"><span
                                                     class="text-nowrap"
                                                     t-esc="amount_by_group[0]"
                                                 /></td>
-                                            <td class="text-right o_price_total">
+                                            <td
+                                                class="text-right o_price_total"
+                                                style="border: 1px solid black; background-color: #DCDCDC;"
+                                            >
                                                 <span
                                                     class="text-nowrap"
                                                     t-esc="amount_by_group[1]"
@@ -281,10 +339,13 @@
                                             </td>
                                         </t>
                                         <t t-else="">
-                                            <td>
+                                            <td style="border: 1px solid black;">
                                                 <span t-esc="amount_by_group[0]" />
                                             </td>
-                                            <td class="text-right o_price_total">
+                                            <td
+                                                class="text-right o_price_total"
+                                                style="border: 1px solid black; background-color: #DCDCDC;"
+                                            >
                                                 <span
                                                     class="text-nowrap"
                                                     t-esc="amount_by_group[1]"
@@ -295,8 +356,13 @@
                                     </tr>
                                 </t>
                                 <tr class="border-black o_total">
-                                    <td><strong>Total</strong></td>
-                                    <td class="text-right">
+                                    <td style="background-color: #DAA520;"><strong
+                                            style="color: #FFFFFF;"
+                                        >Total</strong></td>
+                                    <td
+                                        class="text-right"
+                                        style="background-color: #DAA520;"
+                                    >
                                         <span
                                             class="text-nowrap"
                                             t-field="o.amount_total"
@@ -380,12 +446,6 @@
                         >"The document will be complete when the transfer is completed."</strong>
                     </p>
                 </div>
-                <!-- <div id="qrcode" t-if="o.display_qr_code and o.amount_residual > 0">
-                    <p t-if="qr_code_urls.get(o.id)">
-                        <strong class="text-center">Scan me with your banking app.</strong><br/><br/>
-                        <img class="border border-dark rounded" t-att-src="qr_code_urls[o.id]"/>
-                    </p>
-                </div> -->
                 <div class="row" style="margin-top: 50px; page-break-inside: avoid;">
                     <div t-if="print_receipt or print_tax" class="col-6 text-center">
                         <p
@@ -430,7 +490,13 @@
                     </div>
                 </div>
             </div>
-        </t>
+            <!-- footer -->
+            <div class="footer text-center" style="border-top: 1px solid #C5C5C5;">
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page: <span class="page" /> / <span class="topage" />
+                </div>
+            </div>
+        </div>
     </template>
 
     <template id="report_invoice_tax">

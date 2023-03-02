@@ -203,25 +203,46 @@
                                         />
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>VAT 7%</td>
-                                    <td class="text-right">
-                                        <t t-set="tax_amount" t-value="0" />
-                                        <t
-                                            t-foreach="o.reconciled_invoice_ids + o.reconciled_bill_ids"
-                                            t-as="i"
-                                        >
-                                            <t
-                                                t-set="tax_amount"
-                                                t-value="tax_amount+i.amount_tax"
-                                            />
-                                        </t>
-                                        <span
-                                            t-esc="tax_amount"
-                                            t-options="{'widget': 'float', 'precision': 2}"
-                                        />
-                                    </td>
-                                </tr>
+                                <t t-if="o.reconciled_invoice_ids">
+                                    <t
+                                        t-foreach="o.reconciled_invoice_ids.amount_by_group"
+                                        t-as="amount_by_group"
+                                    >
+                                        <tr style="">
+                                            <td><span
+                                                    class="text-nowrap"
+                                                    t-esc="amount_by_group[0]"
+                                                /></td>
+                                            <td class="text-right o_price_total">
+                                                <span
+                                                    class="text-nowrap"
+                                                    t-esc="amount_by_group[1]"
+                                                    t-options="{'widget': 'float', 'precision': 2}"
+                                                />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                                <t t-if="o.reconciled_bill_ids">
+                                    <t
+                                        t-foreach="o.reconciled_bill_ids.amount_by_group"
+                                        t-as="amount_by_group"
+                                    >
+                                        <tr style="">
+                                            <td><span
+                                                    class="text-nowrap"
+                                                    t-esc="amount_by_group[0]"
+                                                /></td>
+                                            <td class="text-right o_price_total">
+                                                <span
+                                                    class="text-nowrap"
+                                                    t-esc="amount_by_group[1]"
+                                                    t-options="{'widget': 'float', 'precision': 2}"
+                                                />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
                                 <tr class="border-black o_total">
                                     <td><strong>Total</strong></td>
                                     <td class="text-right">
