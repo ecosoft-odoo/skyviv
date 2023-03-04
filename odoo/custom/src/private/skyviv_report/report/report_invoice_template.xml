@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-8" />
                 </div>
-                <h2 style="color: #DAA520;">
+                <h2 style="color: #DAA520; padding: 20px 0;">
                     <span
                         t-if="o.move_type == 'out_invoice' and o.state == 'posted' and print_invoice_tax"
                     >Invoice/Tax Invoice</span>
@@ -135,6 +135,7 @@
                     </div>
                 </div>
             </div>
+            <!-- article -->
             <div class="article">
                 <link
                     href="/skyviv_report/static/src/css/table_report_css.css"
@@ -147,8 +148,10 @@
                 <table>
                     <thead>
                         <tr>
-                            <th name="th_description" class="text-center"><span
-                                >Description</span></th>
+                            <th
+                                name="th_description"
+                                class="text-center description"
+                            ><span>Description</span></th>
                             <th name="th_quantity" class="text-center"><span
                                 >Quantity</span></th>
                             <th
@@ -224,10 +227,7 @@
                                             t-field="line.discount"
                                         />
                                     </td>
-                                    <td
-                                        class="text-right o_price_total"
-                                        style=" background-color: #DCDCDC;"
-                                    >
+                                    <td class="text-right o_price_total">
                                         <span
                                             class="text-nowrap"
                                             t-field="line.price_subtotal"

@@ -1,25 +1,65 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="report_payment_receipt_document">
-        <t t-call="web.external_layout">
-            <t t-set="o" t-value="o.with_context(lang=lang)" />
-            <t t-set="address">
-                <div
-                    t-field="o.partner_id"
-                    t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
-                />
-                <p style="margin: 0">Tax ID: <span t-field="o.partner_id.vat" /></p>
-                <p>Tax Branch: <span t-field="o.partner_id.branch" /></p>
-            </t>
-            <div class="page">
-                <h3><strong>
-                        <span t-if="print_tax">Receipt/Tax Invoice:</span>
-                        <span t-if="not print_tax">Receipt:</span>
-                        <span t-field="o.name" />
-                        <t t-if="i == 0">(ORIGINAL)</t>
-                        <t t-else="">(COPY)</t>
-                    </strong>
-                </h3>
+        <div class="page">
+            <!-- header -->
+            <div class="header">
+                <div class="row">
+                    <div class="col-8">
+                        <img
+                            t-if="o.company_id.logo"
+                            t-att-src="image_data_uri(o.company_id.logo)"
+                            style="max-height: 120px;"
+                            alt="Logo"
+                        />
+                    </div>
+                    <div
+                        class="col-9 text-right"
+                        style="margin-top:22px;"
+                        t-field="o.company_id.report_header"
+                        name="moto"
+                    />
+                    <div class="col-4 text-right">
+                        <div t-field="o.company_id.name" />
+                        <div t-field="o.company_id.street" />
+                        <div t-field="o.company_id.street2" />
+                        <div>
+                            <span t-field="o.company_id.city" />
+                            <span t-field="o.company_id.state_id.name" />
+                            <span t-field="o.company_id.zip" />
+                        </div>
+                        <p style="margin: 0">Tax ID: <span
+                                t-field="o.company_id.vat"
+                            /></p>
+                        <p>Tax Branch: <span t-field="o.company_id.branch" /></p>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid #C5C5C5; margin-bottom: 50px;" />
+                <!-- Partner detail -->
+                <div class="row">
+                    <div class="col-4">
+                        <div t-field="o.partner_id.name" />
+                        <div t-field="o.partner_id.street" />
+                        <div t-field="o.partner_id.street2" />
+                        <div>
+                            <span t-field="o.partner_id.city" />
+                            <span t-field="o.partner_id.state_id.name" />
+                            <span t-field="o.partner_id.zip" />
+                        </div>
+                        <p style="margin: 0">Tax ID: <span
+                                t-field="o.partner_id.vat"
+                            /></p>
+                        <p>Tax Branch: <span t-field="o.partner_id.branch" /></p>
+                    </div>
+                    <div class="col-8" />
+                </div>
+                <h2 style="color: #DAA520; padding: 10px 0;">
+                    <span t-if="print_tax">Receipt/Tax Invoice:</span>
+                    <span t-if="not print_tax">Receipt:</span>
+                    <span t-field="o.name" />
+                    <t t-if="i == 0">(ORIGINAL)</t>
+                    <t t-else="">(COPY)</t>
+                </h2>
                 <div class="row mt64">
                     <div class="col-6" t-if="o.date">
                         <strong>Payment Date: </strong> <span t-field="o.date" />
@@ -36,16 +76,26 @@
                             t-field="o.amount"
                             t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"
                         />
-                     </div>
+                        </div>
                     <div class="col-6" t-if="o.ref">
                         <strong>Memo: </strong><span t-field="o.ref" />
-                     </div>
+                        </div>
                 </div>
-                <table class="table table-sm o_main_table" name="invoice_line_table">
+            </div>
+
+            <!-- article -->
+            <div class="article">
+                <link
+                    href="/skyviv_report/static/src/css/table_report_css.css"
+                    rel="stylesheet"
+                />
+                <table>
                     <thead>
                         <tr>
-                            <th name="th_description" class="text-center"><span
-                                >Description</span></th>
+                            <th
+                                name="th_description"
+                                class="text-center description"
+                            ><span>Description</span></th>
                             <th name="th_quantity" class="text-center"><span
                                 >Quantity</span></th>
                             <th
@@ -180,13 +230,12 @@
                         <div
                             t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto"
                         >
-                            <table
-                                class="table table-sm"
-                                style="page-break-inside: avoid;"
-                            >
-                                <tr class="border-black o_subtotal" style="">
-                                    <td><strong>Subtotal</strong></td>
-                                    <td class="text-right">
+                            <table style="page-break-inside: avoid;">
+                                <tr class="border-black o_subtotal">
+                                    <td class="o_subtotal"><strong
+                                            style="color: #DAA520;"
+                                        >Subtotal</strong></td>
+                                    <td class="text-right o_subtotal">
                                         <t t-set="untaxed" t-value="0" />
                                         <t
                                             t-foreach="o.reconciled_invoice_ids + o.reconciled_bill_ids"
@@ -244,8 +293,10 @@
                                     </t>
                                 </t>
                                 <tr class="border-black o_total">
-                                    <td><strong>Total</strong></td>
-                                    <td class="text-right">
+                                    <td class="o_total_td"><strong
+                                            style="color: #FFFFFF;"
+                                        >Total</strong></td>
+                                    <td class="text-right o_total_td">
                                         <span
                                             class="text-nowrap"
                                             t-field="o.amount_total"
@@ -286,7 +337,14 @@
                     </div>
                 </div>
             </div>
-        </t>
+
+            <!-- footer -->
+            <div class="footer text-center" style="border-top: 1px solid #C5C5C5;">
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page: <span class="page" /> / <span class="topage" />
+                </div>
+            </div>
+        </div>
     </template>
 
     <template id="report_payment_receipt">
