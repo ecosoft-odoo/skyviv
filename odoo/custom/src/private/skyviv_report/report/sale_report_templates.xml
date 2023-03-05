@@ -125,45 +125,86 @@
     </template>
 
     <template id="report_saleorder_document">
-        <t t-call="web.external_layout">
-            <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
-            <t t-set="address">
-                <div
-                    t-field="doc.partner_id"
-                    t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
-                />
-                <p style="margin: 0">Tax ID: <span t-field="doc.partner_id.vat" /></p>
-                <p>Tax Branch: <span t-field="doc.partner_id.branch" /></p>
-            </t>
-            <t
-                t-if="doc.partner_shipping_id == doc.partner_invoice_id
-                                and doc.partner_invoice_id != doc.partner_id
-                                or doc.partner_shipping_id != doc.partner_invoice_id"
-            >
-                <t t-set="information_block">
-                    <strong
-                        t-if="doc.partner_shipping_id == doc.partner_invoice_id"
-                    >Invoicing and Shipping Address:</strong>
-                    <strong
-                        t-if="doc.partner_shipping_id != doc.partner_invoice_id"
-                    >Invoicing Address:</strong>
+        <div class="page">
+            <!-- header -->
+            <div class="header">
+                <div class="row">
+                    <div class="col-8">
+                        <img
+                            t-if="doc.company_id.logo"
+                            t-att-src="image_data_uri(doc.company_id.logo)"
+                            style="max-height: 120px;"
+                            alt="Logo"
+                        />
+                    </div>
                     <div
-                        t-field="doc.partner_invoice_id"
-                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
+                        class="col-9 text-right"
+                        style="margin-top:22px;"
+                        t-field="doc.company_id.report_header"
+                        name="moto"
                     />
-                    <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
-                        <strong>Shipping Address:</strong>
+                    <div class="col-4 text-right">
+                        <div t-field="doc.company_id.name" />
+                        <div t-field="doc.company_id.street" />
+                        <div t-field="doc.company_id.street2" />
+                        <div>
+                            <span t-field="doc.company_id.city" />
+                            <span t-field="doc.company_id.state_id.name" />
+                            <span t-field="doc.company_id.zip" />
+                        </div>
+                        <p style="margin: 0">Tax ID: <span
+                                t-field="doc.company_id.vat"
+                            /></p>
+                        <p>Tax Branch: <span t-field="doc.company_id.branch" /></p>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid #C5C5C5; margin-bottom: 50px;" />
+                <!-- Partner detail -->
+                <div class="row">
+                    <div class="col-4">
+                        <div t-field="doc.partner_id.name" />
+                        <div t-field="doc.partner_id.street" />
+                        <div t-field="doc.partner_id.street2" />
+                        <div>
+                            <span t-field="doc.partner_id.city" />
+                            <span t-field="doc.partner_id.state_id.name" />
+                            <span t-field="doc.partner_id.zip" />
+                        </div>
+                        <p style="margin: 0">Tax ID: <span
+                                t-field="doc.partner_id.vat"
+                            /></p>
+                        <p>Tax Branch: <span t-field="doc.partner_id.branch" /></p>
+                    </div>
+                    <div class="col-8" />
+                </div>
+                <t
+                    t-if="doc.partner_shipping_id == doc.partner_invoice_id
+                                    and doc.partner_invoice_id != doc.partner_id
+                                    or doc.partner_shipping_id != doc.partner_invoice_id"
+                >
+                    <t t-set="information_block">
+                        <strong
+                            t-if="doc.partner_shipping_id == doc.partner_invoice_id"
+                        >Invoicing and Shipping Address:</strong>
+                        <strong
+                            t-if="doc.partner_shipping_id != doc.partner_invoice_id"
+                        >Invoicing Address:</strong>
                         <div
-                            t-field="doc.partner_shipping_id"
+                            t-field="doc.partner_invoice_id"
                             t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
                         />
+                        <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
+                            <strong>Shipping Address:</strong>
+                            <div
+                                t-field="doc.partner_shipping_id"
+                                t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
+                            />
+                        </t>
                     </t>
                 </t>
-            </t>
-            <div class="page">
                 <div class="oe_structure" />
 
-                <h2 class="mt16">
+                <h2 style="color: #DAA520; padding: 5px 0;">
                     <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
                         <span
                             t-if="doc.state not in ['draft','sent']"
@@ -212,30 +253,38 @@
                         <p class="m-0" t-field="doc.user_id" />
                     </div>
                 </div>
-
+            </div>
+            <!-- article-->
+            <div class="article">
+                <link
+                    href="/skyviv_report/static/src/css/table_report_css.css"
+                    rel="stylesheet"
+                />
                 <!-- Is there a discount on at least one line? -->
                 <t
                     t-set="display_discount"
                     t-value="any(l.discount for l in doc.order_line)"
                 />
 
-                <table class="table table-sm o_main_table">
+                <table>
                     <!-- In case we want to repeat the header, remove "display: table-row-group" -->
                     <thead style="display: table-row-group">
                         <tr>
-                            <th name="th_description" class="text-left">Description</th>
-                            <th name="th_quantity" class="text-right">Quantity</th>
-                            <th name="th_priceunit" class="text-right">Unit Price</th>
+                            <th
+                                name="th_description"
+                                class="text-center"
+                            >Description</th>
+                            <th name="th_quantity" class="text-center">Quantity</th>
+                            <th name="th_priceunit" class="text-center">Unit Price</th>
                             <th
                                 name="th_discount"
                                 t-if="display_discount"
-                                class="text-right"
+                                class="text-center"
                                 groups="product.group_discount_per_so_line"
                             >
                                 <span>Disc.%</span>
                             </th>
-                            <!-- <th name="th_taxes" class="text-right">Taxes</th> -->
-                            <th name="th_subtotal" class="text-right">
+                            <th name="th_subtotal" class="text-center">
                                 <span
                                     groups="account.group_show_line_subtotals_tax_excluded"
                                     t-if="doc.pricelist_id.name == 'USD'"
@@ -341,11 +390,18 @@
                         <div
                             t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto"
                         >
-                            <table class="table table-sm">
-                                <tr class="border-black o_subtotal" style="">
-                                    <td name="td_amount_untaxed_label"><strong
+                            <table style="page-break-inside: avoid; ">
+                                <tr class="border-black o_subtotal">
+                                    <td
+                                        class="o_subtotal"
+                                        name="td_amount_untaxed_label"
+                                    ><strong
+                                            style="color: #DAA520;"
                                         >Subtotal</strong></td>
-                                    <td name="td_amount_untaxed" class="text-right">
+                                    <td
+                                        name="td_amount_untaxed"
+                                        class="text-right o_subtotal"
+                                    >
                                         <span
                                             t-field="doc.amount_untaxed"
                                             t-options="{'widget': 'float', 'precision': 2}"
@@ -395,9 +451,14 @@
                                     </tr>
                                 </t>
                                 <tr class="border-black o_total">
-                                    <td name="td_amount_total_label"><strong
-                                        >Total</strong></td>
-                                    <td name="td_amount_total" class="text-right">
+                                    <td
+                                        class="o_total_td"
+                                        name="td_amount_total_label"
+                                    ><strong>Total</strong></td>
+                                    <td
+                                        class="text-right o_total_td"
+                                        name="td_amount_total"
+                                    >
                                         <span
                                             t-field="doc.amount_total"
                                             t-options="{'widget': 'float', 'precision': 2}"
@@ -408,60 +469,57 @@
                         </div>
                     </div>
                 </div>
-
-                <div
-                    t-if="doc.signature"
-                    class="mt32 ml64 mr4"
-                    name="signature"
-                    style="page-break-inside: avoid;"
-                >
-                    <div class="offset-8">
-                        <strong>Signature</strong>
-                    </div>
-                    <div class="offset-8">
-                        <img
-                            t-att-src="image_data_uri(doc.signature)"
-                            style="max-height: 4cm; max-width: 8cm;"
-                        />
-                    </div>
-                    <div class="offset-8 text-center">
-                        <p t-field="doc.signed_by" />
-                    </div>
-                </div>
-
-                <div
-                    t-if="not doc.signature"
-                    class="mt32 ml64 mr4"
-                    name="signature"
-                    style="page-break-inside: avoid;"
-                >
-                    <div class="offset-8">
-                        <![CDATA[
-                        &nbsp;
-                        ]]>
-                        <p />
-                        <![CDATA[
-                        &nbsp;
-                        ]]>
-                        <strong>Signature</strong>
-                    </div>
-                    <div class="offset-8">
-                        <![CDATA[
-                        &nbsp;
-                        ]]>
-                        <p />
-                        <![CDATA[
-                        &nbsp;
-                        ]]>
-                        <p />
-                    </div>
-                    <div class="offset-8">
-                        <p t-field="doc.partner_id.name" />
-                    </div>
-                </div>
-
                 <div class="oe_structure" />
-
+                <!-- signature -->
+                <div style="page-break-inside: avoid;">
+                    <div class="row">
+                        <div class="column" style="width:50%">
+                            <div class="row">
+                                <p style="padding-bottom:50px;" />
+                            </div>
+                            <div class="row">
+                                <div class="col-3" />
+                                <div class="col-8 text-center">
+                                    <hr />
+                                    <p>PIYADOL HIRUNJARUWONG<br>COO</br></p>
+                                </div>
+                                <div class="col-1" />
+                            </div>
+                        </div>
+                        <div class="column" style="width:50%">
+                            <div class="row">
+                                <div class="col-3" />
+                                <div class="col-8 text-left">
+                                    <p>YOUR SINCERELY,</p>
+                                    <![CDATA[
+                                    &nbsp;
+                                    ]]>
+                                    <p />
+                                </div>
+                                <div class="col-1" />
+                            </div>
+                            <div class="row">
+                                <div class="col-3" />
+                                <div class="col-8 text-center">
+                                    <hr />
+                                    <p>VIVATVONG VICHIT-VADAKAN<br>CEO</br></p>
+                                </div>
+                                <div class="col-1" />
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-left:100px; margin-top:25px;">
+                        <span>CUSTOMER PURCHASE ACCEPTANCE:</span>
+                        <span t-if="doc.signature"><img
+                                t-att-src="image_data_uri(doc.signature)"
+                                style="max-height: 3cm; max-width: 8cm;"
+                            /></span>
+                        <span
+                            t-else=""
+                            style="color: #E9EAEC;"
+                        >________________________________________________</span>
+                    </div>
+                </div>
                 <p t-field="doc.note" />
                 <p t-if="doc.payment_term_id.note">
                     <span t-field="doc.payment_term_id.note" />
@@ -474,7 +532,15 @@
                     <span t-field="doc.fiscal_position_id.sudo().note" />
                 </p>
             </div>
-        </t>
+
+            <!-- footer -->
+            <div class="footer text-center" style="border-top: 1px solid #C5C5C5;">
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page: <span class="page" /> / <span class="topage" />
+                </div>
+            </div>
+        </div>
+
     </template>
 
     <template id="report_saleorder">
