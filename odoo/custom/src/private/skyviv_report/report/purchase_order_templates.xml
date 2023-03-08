@@ -1,44 +1,71 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 <template id="report_purchaseorder_document">
-    <t t-call="web.external_layout">
-        <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)" />
-        <t t-set="address">
-            <div
-                    t-field="o.partner_id"
-                    t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True, "phone_icons": True}'
-                />
-            <p style="margin: 0">Tax ID: <span t-field="o.partner_id.vat" /></p>
-            <p>Tax Branch: <span t-field="o.partner_id.branch" /></p>
-        </t>
-        <t t-if="o.dest_address_id">
-            <t t-set="information_block">
-                <strong>Shipping address:</strong>
-                <div t-if="o.dest_address_id">
-                    <div
-                            t-field="o.dest_address_id"
-                            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
-                            name="purchase_shipping_address"
+    <div class="page">
+        <!-- header -->
+        <div class="header">
+            <div class="row">
+                <div class="col-8">
+                    <img
+                            t-if="o.company_id.logo"
+                            t-att-src="image_data_uri(o.company_id.logo)"
+                            style="max-height: 120px;"
+                            alt="Logo"
                         />
                 </div>
-
-            </t>
-        </t>
-        <div class="page">
+                <div
+                        class="col-9 text-right"
+                        style="margin-top:22px;"
+                        t-field="o.company_id.report_header"
+                        name="moto"
+                    />
+                <div class="col-4 text-right">
+                    <div t-field="o.company_id.name" />
+                    <div t-field="o.company_id.street" />
+                    <div t-field="o.company_id.street2" />
+                    <div>
+                        <span t-field="o.company_id.city" />
+                        <span t-field="o.company_id.state_id.name" />
+                        <span t-field="o.company_id.zip" />
+                    </div>
+                    <p style="margin: 0">Tax ID: <span t-field="o.company_id.vat" /></p>
+                    <p>Tax Branch: <span t-field="o.company_id.branch" /></p>
+                </div>
+            </div>
+            <hr style="border-top: 1px solid #C5C5C5; margin-bottom: 50px;" />
+            <!-- Partner detail -->
+            <div class="row">
+                <div class="col-4">
+                    <div t-field="o.partner_id.name" />
+                    <div t-field="o.partner_id.street" />
+                    <div t-field="o.partner_id.street2" />
+                    <div>
+                        <span t-field="o.partner_id.city" />
+                        <span t-field="o.partner_id.state_id.name" />
+                        <span t-field="o.partner_id.zip" />
+                    </div>
+                    <p style="margin: 0">Tax ID: <span t-field="o.partner_id.vat" /></p>
+                    <p>Tax Branch: <span t-field="o.partner_id.branch" /></p>
+                </div>
+                <div class="col-8" />
+            </div>
             <div class="oe_structure" />
-
-            <h2 t-if="o.state == 'draft'">Request for Quotation #<span
-                        t-field="o.name"
-                    /></h2>
-            <h2 t-if="o.state in ['sent', 'to approve']">Purchase Order #<span
-                        t-field="o.name"
-                    /></h2>
-            <h2 t-if="o.state in ['purchase', 'done']">Purchase Order #<span
-                        t-field="o.name"
-                    /></h2>
-            <h2 t-if="o.state == 'cancel'">Cancelled Purchase Order #<span
-                        t-field="o.name"
-                    /></h2>
+            <h2
+                    style="color: #DAA520; padding: 5px 0;"
+                    t-if="o.state == 'draft'"
+                >Request for Quotation #<span t-field="o.name" /></h2>
+            <h2
+                    style="color: #DAA520; padding: 5px 0;"
+                    t-if="o.state in ['sent', 'to approve']"
+                >Purchase Order #<span t-field="o.name" /></h2>
+            <h2
+                    style="color: #DAA520; padding: 5px 0;"
+                    t-if="o.state in ['purchase', 'done']"
+                >Purchase Order #<span t-field="o.name" /></h2>
+            <h2
+                    style="color: #DAA520; padding: 5px 0;"
+                    t-if="o.state == 'cancel'"
+                >Cancelled Purchase Order #<span t-field="o.name" /></h2>
 
             <div id="informations" class="row mt32 mb32">
                 <div t-if="o.user_id" class="col-3 bm-2">
@@ -55,15 +82,22 @@
                 </div>
             </div>
 
-            <table class="table table-sm o_main_table">
+        </div>
+        <div class="article">
+            <link
+                    href="/skyviv_report/static/src/css/table_report_css.css"
+                    rel="stylesheet"
+                />
+            <table>
                 <thead>
                     <tr>
-                        <th name="th_description"><strong>Description</strong></th>
-                        <th name="th_quantity" class="text-right"><strong
+                        <th name="th_description" class="text-center"><strong
+                                >Description</strong></th>
+                        <th name="th_quantity" class="text-center"><strong
                                 >Qty</strong></th>
-                        <th name="th_price_unit" class="text-right"><strong
+                        <th name="th_price_unit" class="text-center"><strong
                                 >Unit Price</strong></th>
-                        <th name="th_amount" class="text-right"><strong
+                        <th name="th_amount" class="text-center"><strong
                                 >Amount</strong></th>
                     </tr>
                 </thead>
@@ -135,12 +169,13 @@
                 </tbody>
             </table>
 
-            <div id="total" class="row justify-content-end">
+            <div id="total" class="row justify-content-end" style="padding: 20px 0;">
                 <div class="col-4">
-                    <table class="table table-sm">
-                        <tr class="border-black">
-                            <td name="td_subtotal_label"><strong>Subtotal</strong></td>
-                            <td class="text-right">
+                    <table style="page-break-inside: avoid; ">
+                        <tr class="border-black o_subtotal">
+                            <td name="td_subtotal_label" class="o_subtotal"><strong
+                                    >Subtotal</strong></td>
+                            <td class="text-right o_subtotal">
                                 <span
                                         t-field="o.amount_untaxed"
                                         t-options='{"widget": "monetary", "display_currency": o.currency_id}'
@@ -157,8 +192,9 @@
                             </td>
                         </tr>
                         <tr class="border-black o_total">
-                            <td name="td_amount_total_label"><strong>Total</strong></td>
-                            <td class="text-right">
+                            <td name="td_amount_total_label" class="o_total_td"><strong
+                                    >Total</strong></td>
+                            <td class="text-right o_total_td">
                                 <span
                                         t-field="o.amount_total"
                                         t-options='{"widget": "monetary", "display_currency": o.currency_id}'
@@ -172,17 +208,61 @@
             <p t-field="o.notes" />
             <div class="oe_structure" />
 
-            <div class="row" style="margin: 150px 50px 20px; page-break-inside: avoid;">
-                <div class="col-6 text-center" />
-                <div class="col-6 text-center">
-                    <p t-field="o.create_uid" />
-                    <strong>Create By</strong>
+            <div style="page-break-inside: avoid; padding-top: 20px;">
+                <div class="row">
+                    <div class="column" style="width:50%">
+                        <div class="row">
+                            <div class="col-3" />
+                            <div class="col-8 text-left">
+                                <p>For SKY VIV CO.LTD.<br>Approver:</br></p>
+                                <![CDATA[
+                                &nbsp;
+                                ]]>
+                                <p />
+                            </div>
+                            <div class="col-1" />
+                        </div>
+                        <div class="row">
+                            <div class="col-3" />
+                            <div class="col-8 text-left">
+                                <p />
+                                <p>( MR.VIVATVONG VICHIT-VADAKAN )<br>Date:</br></p>
+                            </div>
+                            <div class="col-1" />
+                        </div>
+                    </div>
+                    <div class="column" style="width:50%">
+                        <div class="row">
+                            <div class="col-3" />
+                            <div class="col-8 text-left">
+                                <p>Accepted by Authorized Person<br>Vendor:</br></p>
+                                <![CDATA[
+                                &nbsp;
+                                ]]>
+                                <p />
+                            </div>
+                            <div class="col-1" />
+                        </div>
+                        <div class="row">
+                            <div class="col-3" />
+                            <div class="col-8 text-left">
+                                <p />
+                                <p>( <span t-field="o.partner_id.name" /> )<br
+                                        >Date:</br></p>
+                            </div>
+                            <div class="col-1" />
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
-
-    </t>
+        <!-- footer -->
+        <div class="footer text-center" style="border-top: 1px solid #C5C5C5;">
+            <div t-if="report_type == 'pdf'" class="text-muted">
+                Page: <span class="page" /> / <span class="topage" />
+            </div>
+        </div>
+    </div>
 </template>
 
 <template id="report_purchaseorder">

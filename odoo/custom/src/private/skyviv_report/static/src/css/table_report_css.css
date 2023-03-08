@@ -1,0 +1,40 @@
+table {
+    width: 100%;
+    border: 1px solid black;
+}
+thead th {
+    border: 1px solid black;
+    border-bottom: 2px solid black;
+}
+tr {
+    border: 1px solid black;
+    line-height: 30px;
+}
+td {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 0 5px;
+}
+.description {
+    width: 55%;
+}
+.o_price_total {
+    background-color: #dcdcdc;
+}
+.clearfix {
+    padding: 30px 0;
+}
+.o_subtotal {
+    border-bottom: 1px solid black;
+}
+td.o_subtotal {
+    border: none;
+}
+.o_total {
+    color: white;
+}
+td.o_total_td {
+    background-color: #daa520;
+    border: none;
+    color: white;
+}

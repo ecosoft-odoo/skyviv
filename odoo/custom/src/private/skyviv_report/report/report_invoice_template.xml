@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-8" />
                 </div>
-                <h2 style="color: #DAA520;">
+                <h2 style="color: #DAA520; padding: 20px 0;">
                     <span
                         t-if="o.move_type == 'out_invoice' and o.state == 'posted' and print_invoice_tax"
                     >Invoice/Tax Invoice</span>
@@ -135,43 +135,37 @@
                     </div>
                 </div>
             </div>
+            <!-- article -->
             <div class="article">
+                <link
+                    href="/skyviv_report/static/src/css/table_report_css.css"
+                    rel="stylesheet"
+                />
                 <t
                     t-set="display_discount"
                     t-value="any(l.discount for l in o.invoice_line_ids)"
                 />
-
-                <table class="table table-sm" style="border: 1px solid black;">
+                <table>
                     <thead>
                         <tr>
                             <th
                                 name="th_description"
-                                class="text-center"
-                                style="border: 1px solid black;"
+                                class="text-center description"
                             ><span>Description</span></th>
-                            <th
-                                name="th_quantity"
-                                class="text-center"
-                                style="border: 1px solid black;"
-                            ><span>Quantity</span></th>
+                            <th name="th_quantity" class="text-center"><span
+                                >Quantity</span></th>
                             <th
                                 name="th_priceunit"
                                 t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
-                                style="border: 1px solid black;"
                             ><span>Unit Price</span></th>
                             <th
                                 name="th_price_unit"
                                 t-if="display_discount"
                                 t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
-                                style="border: 1px solid black;"
                             >
                                 <span>Disc.%</span>
                             </th>
-                            <th
-                                name="th_subtotal"
-                                class="text-center"
-                                style="border: 1px solid black;"
-                            >
+                            <th name="th_subtotal" class="text-center">
                                 <span
                                     groups="account.group_show_line_subtotals_tax_excluded"
                                 >Amount (BAHT)</span>
@@ -187,7 +181,6 @@
                             t-set="lines"
                             t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"
                         />
-
                         <t t-foreach="lines" t-as="line">
                             <t
                                 t-set="current_subtotal"
@@ -199,7 +192,6 @@
                                 t-value="current_subtotal + line.price_total"
                                 groups="account.group_show_line_subtotals_tax_included"
                             />
-
                             <tr
                                 t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''"
                             >
@@ -207,17 +199,11 @@
                                     t-if="not line.display_type"
                                     name="account_invoice_line_accountable"
                                 >
-                                    <td
-                                        name="account_invoice_line_name"
-                                        style="border: 1px solid black;"
-                                    ><span
+                                    <td name="account_invoice_line_name"><span
                                             t-field="line.name"
                                             t-options="{'widget': 'text'}"
                                         /></td>
-                                    <td
-                                        class="text-right"
-                                        style="border: 1px solid black;"
-                                    >
+                                    <td class="text-right">
                                         <span t-field="line.quantity" />
                                         <span
                                             t-field="line.product_uom_id"
@@ -226,7 +212,6 @@
                                     </td>
                                     <td
                                         t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
-                                        style="border: 1px solid black;"
                                     >
                                         <span
                                             class="text-nowrap"
@@ -236,17 +221,13 @@
                                     <td
                                         t-if="display_discount"
                                         t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
-                                        style="border: 1px solid black;"
                                     >
                                         <span
                                             class="text-nowrap"
                                             t-field="line.discount"
                                         />
                                     </td>
-                                    <td
-                                        class="text-right o_price_total"
-                                        style="border: 1px solid black; background-color: #DCDCDC;"
-                                    >
+                                    <td class="text-right o_price_total">
                                         <span
                                             class="text-nowrap"
                                             t-field="line.price_subtotal"
@@ -262,7 +243,7 @@
                                     </td>
                                 </t>
                                 <t t-if="line.display_type == 'line_section'">
-                                    <td colspan="99" style="border: 1px solid black;">
+                                    <td colspan="99">
                                         <span
                                             t-field="line.name"
                                             t-options="{'widget': 'text'}"
@@ -272,7 +253,7 @@
                                     <t t-set="current_subtotal" t-value="0" />
                                 </t>
                                 <t t-if="line.display_type == 'line_note'">
-                                    <td colspan="99" style="border: 1px solid black;">
+                                    <td colspan="99">
                                         <span
                                             t-field="line.name"
                                             t-options="{'widget': 'text'}"
@@ -285,7 +266,7 @@
                                 t-if="current_section and (line_last or lines[line_index+1].display_type == 'line_section')"
                             >
                                 <tr class="is-subtotal text-right">
-                                    <td colspan="99" style="border: 1px solid black;">
+                                    <td colspan="99">
                                         <strong class="mr16">Subtotal</strong>
                                         <span
                                             t-esc="current_subtotal"
@@ -303,15 +284,12 @@
                         <div
                             t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto"
                         >
-                            <table
-                                class="table table-sm"
-                                style="page-break-inside: avoid; border: 1px solid black;"
-                            >
-                                <tr class="border-black o_subtotal" style="">
-                                    <td><strong
+                            <table style="page-break-inside: avoid; ">
+                                <tr class="border-black o_subtotal">
+                                    <td class="o_subtotal"><strong
                                             style="color: #DAA520;"
                                         >Subtotal</strong></td>
-                                    <td class="text-right">
+                                    <td class="text-right o_subtotal">
                                         <span
                                             t-field="o.amount_untaxed"
                                             t-options="{'widget': 'float', 'precision': 2}"
@@ -319,17 +297,17 @@
                                     </td>
                                 </tr>
                                 <t t-foreach="o.amount_by_group" t-as="amount_by_group">
-                                    <tr style="">
+                                    <tr>
                                         <t
                                             t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and float_compare(o.amount_untaxed, amount_by_group[2], precision_rounding=o.currency_id.rounding) == 0"
                                         >
-                                            <td style="border: 1px solid black;"><span
+                                            <td><span
                                                     class="text-nowrap"
                                                     t-esc="amount_by_group[0]"
                                                 /></td>
                                             <td
                                                 class="text-right o_price_total"
-                                                style="border: 1px solid black; background-color: #DCDCDC;"
+                                                style=" background-color: #DCDCDC;"
                                             >
                                                 <span
                                                     class="text-nowrap"
@@ -339,12 +317,12 @@
                                             </td>
                                         </t>
                                         <t t-else="">
-                                            <td style="border: 1px solid black;">
+                                            <td>
                                                 <span t-esc="amount_by_group[0]" />
                                             </td>
                                             <td
                                                 class="text-right o_price_total"
-                                                style="border: 1px solid black; background-color: #DCDCDC;"
+                                                style=" background-color: #DCDCDC;"
                                             >
                                                 <span
                                                     class="text-nowrap"
@@ -356,13 +334,10 @@
                                     </tr>
                                 </t>
                                 <tr class="border-black o_total">
-                                    <td style="background-color: #DAA520;"><strong
+                                    <td class="o_total_td"><strong
                                             style="color: #FFFFFF;"
                                         >Total</strong></td>
-                                    <td
-                                        class="text-right"
-                                        style="background-color: #DAA520;"
-                                    >
+                                    <td class="text-right o_total_td">
                                         <span
                                             class="text-nowrap"
                                             t-field="o.amount_total"
