@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-8" />
                 </div>
-                <h2 style="color: #DAA520; padding: 20px 0;">
+                <h2 style="color: #DAA520; padding-top: 20px;">
                     <span
                         t-if="o.move_type == 'out_invoice' and o.state == 'posted' and print_invoice_tax"
                     >Invoice/Tax Invoice</span>
@@ -168,7 +168,12 @@
                             <th name="th_subtotal" class="text-center">
                                 <span
                                     groups="account.group_show_line_subtotals_tax_excluded"
+                                    t-if="o.currency_id.name == 'THB'"
                                 >Amount (BAHT)</span>
+                                <span
+                                    groups="account.group_show_line_subtotals_tax_excluded"
+                                    t-if="o.currency_id.name != 'THB'"
+                                >Amount (<span t-esc="o.currency_id.name" />)</span>
                                 <span
                                     groups="account.group_show_line_subtotals_tax_included"
                                 >Total Price</span>
