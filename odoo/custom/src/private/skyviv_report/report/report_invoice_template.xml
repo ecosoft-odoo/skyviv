@@ -416,30 +416,34 @@
                         t-field="o.invoice_incoterm_id.code"
                     /> - <span t-field="o.invoice_incoterm_id.name" />
                 </p>
-                <div t-if="print_receipt or print_tax">
-                    <p>
+                <div t-if="print_receipt or print_tax" class="text-center">
+                    <div class="receipt_invoice_detail">
                         <strong
-                        >"เอกสารจะสมบรูณ์เมื่อได้รับเงินโอนเข้าบัญชีเรียบร้อยแล้ว"</strong>
-                    </p>
-                    <p>
+                        >ใบเสร็จรับเงินฉบับนี้จะสมบูรณ์ เมื่อมีลายเซ็นของผู้มีอำนาจและผู้รับเงิน และเช็คฉบับนี้ได้เรียกเก็บเงินจากธนาคารเรียบร้อยแล้ว</strong>
+                    </div>
+                    <div class="receipt_invoice_detail">
                         <strong
-                        >"The document will be complete when the transfer is completed."</strong>
-                    </p>
+                        >This receipt is valid only when signed by authorized and collector as well as the cheque is duly cleared.</strong>
+                    </div>
                 </div>
+                <!-- Signature -->
                 <div class="row" style="margin-top: 50px; page-break-inside: avoid;">
+                    <!-- Receipt -->
                     <div t-if="print_receipt or print_tax" class="col-6 text-center">
-                        <p
-                        >เงินโอน/เช็ค/เลขที่............ วันที่.......................</p>
-                        <p
-                        >ธนาคาร.................................... สาขา....................</p>
                         <![CDATA[
                         &nbsp;
                         ]]>
-                        <hr
-                            style="border-top: dotted 1px; margin-left:55px; margin-right:55px;"
-                        />
-                        <strong>ผู้รับเงิน</strong>
+                        <hr style="width: 70%; border-color: black; margin: auto;" />
+                        <strong>Collector</strong>
                     </div>
+                    <div t-if="print_receipt or print_tax" class="col-6 text-center">
+                        <![CDATA[
+                        &nbsp;
+                        ]]>
+                        <hr style="width: 70%; border-color: black; margin: auto;" />
+                        <strong>Authorized Signature</strong>
+                    </div>
+                    <!-- Invoice -->
                     <div
                         t-if="print_with_payments or print_invoice_tax"
                         class="col-6 text-center"
@@ -457,7 +461,10 @@
                         ]]>
                         <strong>Receiver Signature</strong>
                     </div>
-                    <div class="col-6 text-center">
+                    <div
+                        t-if="print_with_payments or print_invoice_tax"
+                        class="col-6 text-center"
+                    >
                         <p>ในนาม <span t-field="o.company_id.name" /></p>
                         <![CDATA[
                         &nbsp;
@@ -467,6 +474,76 @@
                         &nbsp;
                         ]]>
                         <strong>Authorized Signature</strong>
+                    </div>
+                </div>
+                <div
+                    t-if="print_with_payments or print_invoice_tax"
+                    class="row"
+                    style="margin: 15px; page-break-inside: avoid;"
+                >
+                    <![CDATA[
+                    Please transfer the amount to the following bank account:<br
+                    />Account Name: SKYVIV COMPANY LTD.<br
+                    />Bank: KASIKORN BANK PUBLIC COMPANY<br
+                    />Account No.: 0103334721<br
+                    />SWIFT Code: KASITHBK]]>
+                </div>
+                <!-- Payment detail -->
+                <div
+                    t-if="print_receipt or print_tax"
+                    class="text-left receipt_invoice_detail"
+                    style="margin-left:15px; page-break-inside: avoid;"
+                >
+                    <div class="row" style="margin-top:20px;">
+                        <![CDATA[
+                            <div class="col-2">
+                                ชำระโดย<br/>Payment by
+                            </div>
+                            <div class="col-2">
+                                <input type="radio" />
+                                &emsp;เงินสด<br/>&emsp;&emsp;Cash
+                            </div>
+                            <div class="col-2">
+                                <input type="radio" />&emsp;เช็ค<br/>&emsp;&emsp;Cheque
+                            </div>
+                            <div class="col-2">
+                                <input type="radio" />&emsp;โอน<br/>&emsp;&emsp;Transfer
+                            </div>
+                            <div class="col-2">
+
+                        ]]>
+                    </div>
+                </div>
+                <div
+                    t-if="print_receipt or print_tax"
+                    class="text-left receipt_invoice_detail"
+                    style="page-break-inside: avoid;"
+                >
+                    <div class="row" style="margin-top: 20px;">
+                        <div style="margin-right: 10px;">
+                            <![CDATA[
+                            จำนวนเงินบาท<br
+                            />Amount of money_________________________Baht
+                            ]]>
+                        </div>
+                        <div>
+                            <![CDATA[
+                            ธนาคาร<br
+                            />Bank_________________________
+                            ]]>
+                        </div>
+                        <div>
+                            <![CDATA[
+                            เช็คเลขที่<br
+                            />Cheque No._________________________
+                            ]]>
+                        </div>
+                        <div>
+                            <![CDATA[
+                            ลงวันที่<br
+                            />Date______/______/_________
+                            ]]>
+                        </div>
                     </div>
                 </div>
             </div>
