@@ -38,3 +38,11 @@ td.o_total_td {
     border: none;
     color: white;
 }
+.receipt_invoice_detail {
+    font-size: 14px;
+}
+.checkmark {
+    border-color: black;
+    height: 25px;
+    width: 25px;
+}
