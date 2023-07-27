@@ -84,7 +84,7 @@
             </div>
 
             <!-- article -->
-            <div class="article">
+            <div class="article" style="margin-top:100px;">
                 <link
                     href="/skyviv_report/static/src/css/table_report_css.css"
                     rel="stylesheet"
@@ -253,24 +253,20 @@
                                     </td>
                                 </tr>
                                 <t t-if="o.reconciled_invoice_ids">
-                                    <t
-                                        t-foreach="o.reconciled_invoice_ids.amount_by_group"
-                                        t-as="amount_by_group"
-                                    >
-                                        <tr style="">
-                                            <td><span
-                                                    class="text-nowrap"
-                                                    t-esc="amount_by_group[0]"
-                                                /></td>
-                                            <td class="text-right o_price_total">
-                                                <span
-                                                    class="text-nowrap"
-                                                    t-esc="amount_by_group[1]"
-                                                    t-options="{'widget': 'float', 'precision': 2}"
-                                                />
-                                            </td>
-                                        </tr>
-                                    </t>
+                                    <tr style="">
+                                        <td><span
+                                                class="text-nowrap"
+                                                t-esc="o.reconciled_invoice_ids[0].amount_by_group[0][0]"
+                                            />
+                                        </td>
+                                        <td class="text-right o_price_total">
+                                            <span
+                                                class="text-nowrap"
+                                                t-esc="sum(inv.amount_by_group[0][1] if inv.amount_by_group and inv.amount_by_group[0] else 0 for inv in o.reconciled_invoice_ids)"
+                                                t-options="{'widget': 'float', 'precision': 2}"
+                                            />
+                                        </td>
+                                    </tr>
                                 </t>
                                 <t t-if="o.reconciled_bill_ids">
                                     <t
