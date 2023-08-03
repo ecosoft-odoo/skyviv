@@ -254,66 +254,40 @@
                                 </tr>
 
                                 <t t-if="o.reconciled_invoice_ids">
-                                    <t t-set="vat_list" t-value="[]" />
                                     <t
-                                        t-foreach="o.reconciled_invoice_ids"
-                                        t-as="invoice"
-                                    >
+                                        t-set="amount_by_groups"
+                                        t-value="o.reconciled_invoice_ids.mapped('amount_by_group')"
+                                    />
+                                    <t
+                                        t-set="amount_by_group"
+                                        t-value="[tg for tax_groups in amount_by_groups for tg in tax_groups]"
+                                    />
+                                    <t
+                                        t-set="tax_group_ids"
+                                        t-value="list(set(map(lambda l: l[6], amount_by_group)))"
+                                    />
+                                    <t t-foreach="tax_group_ids" t-as="tax_group_id">
                                         <t
-                                            t-set="vat_info"
-                                            t-value="invoice.amount_by_group"
+                                            t-set="tax_groups"
+                                            t-value="list(filter(lambda l: l[6] == tax_group_id, amount_by_group))"
                                         />
-                                        <t t-if="vat_info">
-                                            <t
-                                                t-set="vat_type"
-                                                t-value="vat_info[0][0]"
-                                            />
-                                            <t
-                                                t-set="vat_amount"
-                                                t-value="vat_info[0][1]"
-                                            />
-                                            <t t-if="vat_list">
-                                                <t t-set="vat_found" t-value="False" />
-                                                <t t-foreach="vat_list" t-as="vat_item">
-                                                    <t t-if="vat_item[0] == vat_type">
-                                                        <t
-                                                            t-set="vat_item"
-                                                            t-value="(vat_item[0], vat_item[1] + vat_amount)"
-                                                        />
-                                                        <t
-                                                            t-set="vat_found"
-                                                            t-value="True"
-                                                        />
-                                                    </t>
-                                                </t>
-                                                <t t-if="not vat_found">
-                                                    <t
-                                                        t-set="vat_list"
-                                                        t-value="vat_list + [(vat_type, vat_amount)]"
-                                                    />
-                                                </t>
-                                            </t>
-                                            <t t-else="">
-                                                <t
-                                                    t-set="vat_list"
-                                                    t-value="vat_list + [(vat_type, vat_amount)]"
-                                                />
-                                            </t>
-                                        </t>
-                                    </t>
-
-                                    <t t-foreach="vat_list" t-as="vat_item">
+                                        <t
+                                            t-set="tax_name"
+                                            t-value="list(set(map(lambda l: l[0], tax_groups)))[0]"
+                                        />
+                                        <t
+                                            t-set="tax_amount"
+                                            t-value="sum(list(map(lambda l: l[1], tax_groups)))"
+                                        />
                                         <tr style="">
-                                            <td>
-                                                <span
+                                            <td><span
                                                     class="text-nowrap"
-                                                    t-esc="vat_item[0]"
-                                                />
-                                            </td>
+                                                    t-esc="tax_name"
+                                                /></td>
                                             <td class="text-right o_price_total">
                                                 <span
                                                     class="text-nowrap"
-                                                    t-esc="vat_item[1]"
+                                                    t-esc="tax_amount"
                                                     t-options="{'widget': 'float', 'precision': 2}"
                                                 />
                                             </td>
@@ -322,63 +296,40 @@
                                 </t>
 
                                 <t t-if="o.reconciled_bill_ids">
-                                    <t t-set="vat_list" t-value="[]" />
-                                    <t t-foreach="o.reconciled_bill_ids" t-as="invoice">
+                                    <t
+                                        t-set="amount_by_groups"
+                                        t-value="o.reconciled_bill_ids.mapped('amount_by_group')"
+                                    />
+                                    <t
+                                        t-set="amount_by_group"
+                                        t-value="[tg for tax_groups in amount_by_groups for tg in tax_groups]"
+                                    />
+                                    <t
+                                        t-set="tax_group_ids"
+                                        t-value="list(set(map(lambda l: l[6], amount_by_group)))"
+                                    />
+                                    <t t-foreach="tax_group_ids" t-as="tax_group_id">
                                         <t
-                                            t-set="vat_info"
-                                            t-value="invoice.amount_by_group"
+                                            t-set="tax_groups"
+                                            t-value="list(filter(lambda l: l[6] == tax_group_id, amount_by_group))"
                                         />
-                                        <t t-if="vat_info">
-                                            <t
-                                                t-set="vat_type"
-                                                t-value="vat_info[0][0]"
-                                            />
-                                            <t
-                                                t-set="vat_amount"
-                                                t-value="vat_info[0][1]"
-                                            />
-                                            <t t-if="vat_list">
-                                                <t t-set="vat_found" t-value="False" />
-                                                <t t-foreach="vat_list" t-as="vat_item">
-                                                    <t t-if="vat_item[0] == vat_type">
-                                                        <t
-                                                            t-set="vat_item"
-                                                            t-value="(vat_item[0], vat_item[1] + vat_amount)"
-                                                        />
-                                                        <t
-                                                            t-set="vat_found"
-                                                            t-value="True"
-                                                        />
-                                                    </t>
-                                                </t>
-                                                <t t-if="not vat_found">
-                                                    <t
-                                                        t-set="vat_list"
-                                                        t-value="vat_list + [(vat_type, vat_amount)]"
-                                                    />
-                                                </t>
-                                            </t>
-                                            <t t-else="">
-                                                <t
-                                                    t-set="vat_list"
-                                                    t-value="vat_list + [(vat_type, vat_amount)]"
-                                                />
-                                            </t>
-                                        </t>
-                                    </t>
-
-                                    <t t-foreach="vat_list" t-as="vat_item">
+                                        <t
+                                            t-set="tax_name"
+                                            t-value="list(set(map(lambda l: l[0], tax_groups)))[0]"
+                                        />
+                                        <t
+                                            t-set="tax_amount"
+                                            t-value="sum(list(map(lambda l: l[1], tax_groups)))"
+                                        />
                                         <tr style="">
-                                            <td>
-                                                <span
+                                            <td><span
                                                     class="text-nowrap"
-                                                    t-esc="vat_item[0]"
-                                                />
-                                            </td>
+                                                    t-esc="tax_name"
+                                                /></td>
                                             <td class="text-right o_price_total">
                                                 <span
                                                     class="text-nowrap"
-                                                    t-esc="vat_item[1]"
+                                                    t-esc="tax_amount"
                                                     t-options="{'widget': 'float', 'precision': 2}"
                                                 />
                                             </td>
