@@ -84,7 +84,7 @@
             </div>
 
             <!-- article -->
-            <div class="article">
+            <div class="article" style="margin-top:100px;">
                 <link
                     href="/skyviv_report/static/src/css/table_report_css.css"
                     rel="stylesheet"
@@ -252,46 +252,91 @@
                                         />
                                     </td>
                                 </tr>
+
                                 <t t-if="o.reconciled_invoice_ids">
                                     <t
-                                        t-foreach="o.reconciled_invoice_ids.amount_by_group"
-                                        t-as="amount_by_group"
-                                    >
+                                        t-set="amount_by_groups"
+                                        t-value="o.reconciled_invoice_ids.mapped('amount_by_group')"
+                                    />
+                                    <t
+                                        t-set="amount_by_group"
+                                        t-value="[tg for tax_groups in amount_by_groups for tg in tax_groups]"
+                                    />
+                                    <t
+                                        t-set="tax_group_ids"
+                                        t-value="list(set(map(lambda l: l[6], amount_by_group)))"
+                                    />
+                                    <t t-foreach="tax_group_ids" t-as="tax_group_id">
+                                        <t
+                                            t-set="tax_groups"
+                                            t-value="list(filter(lambda l: l[6] == tax_group_id, amount_by_group))"
+                                        />
+                                        <t
+                                            t-set="tax_name"
+                                            t-value="list(set(map(lambda l: l[0], tax_groups)))[0]"
+                                        />
+                                        <t
+                                            t-set="tax_amount"
+                                            t-value="sum(list(map(lambda l: l[1], tax_groups)))"
+                                        />
                                         <tr style="">
                                             <td><span
                                                     class="text-nowrap"
-                                                    t-esc="amount_by_group[0]"
+                                                    t-esc="tax_name"
                                                 /></td>
                                             <td class="text-right o_price_total">
                                                 <span
                                                     class="text-nowrap"
-                                                    t-esc="amount_by_group[1]"
+                                                    t-esc="tax_amount"
                                                     t-options="{'widget': 'float', 'precision': 2}"
                                                 />
                                             </td>
                                         </tr>
                                     </t>
                                 </t>
+
                                 <t t-if="o.reconciled_bill_ids">
                                     <t
-                                        t-foreach="o.reconciled_bill_ids.amount_by_group"
-                                        t-as="amount_by_group"
-                                    >
+                                        t-set="amount_by_groups"
+                                        t-value="o.reconciled_bill_ids.mapped('amount_by_group')"
+                                    />
+                                    <t
+                                        t-set="amount_by_group"
+                                        t-value="[tg for tax_groups in amount_by_groups for tg in tax_groups]"
+                                    />
+                                    <t
+                                        t-set="tax_group_ids"
+                                        t-value="list(set(map(lambda l: l[6], amount_by_group)))"
+                                    />
+                                    <t t-foreach="tax_group_ids" t-as="tax_group_id">
+                                        <t
+                                            t-set="tax_groups"
+                                            t-value="list(filter(lambda l: l[6] == tax_group_id, amount_by_group))"
+                                        />
+                                        <t
+                                            t-set="tax_name"
+                                            t-value="list(set(map(lambda l: l[0], tax_groups)))[0]"
+                                        />
+                                        <t
+                                            t-set="tax_amount"
+                                            t-value="sum(list(map(lambda l: l[1], tax_groups)))"
+                                        />
                                         <tr style="">
                                             <td><span
                                                     class="text-nowrap"
-                                                    t-esc="amount_by_group[0]"
+                                                    t-esc="tax_name"
                                                 /></td>
                                             <td class="text-right o_price_total">
                                                 <span
                                                     class="text-nowrap"
-                                                    t-esc="amount_by_group[1]"
+                                                    t-esc="tax_amount"
                                                     t-options="{'widget': 'float', 'precision': 2}"
                                                 />
                                             </td>
                                         </tr>
                                     </t>
                                 </t>
+
                                 <tr class="border-black o_total">
                                     <td class="o_total_td"><strong
                                             style="color: #FFFFFF;"
