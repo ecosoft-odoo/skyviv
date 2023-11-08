@@ -354,31 +354,83 @@
                     </div>
                 </div>
 
-                <div class="row" style="margin-top: 50px; page-break-inside: avoid;">
-                    <div class="col-6 text-center">
-                        <p
-                        >เงินโอน/เช็ค/เลขที่............ วันที่.......................</p>
-                        <p
-                        >ธนาคาร.................................... สาขา....................</p>
-                        <![CDATA[
-                        &nbsp;
-                        ]]>
-                        <hr
-                            style="border-top: dotted 1px; margin-left:55px; margin-right:55px;"
-                        />
-                        <strong>ผู้รับเงิน</strong>
+                <div class="text-center">
+                    <div class="receipt_invoice_detail">
+                        <strong
+                        >ใบเสร็จรับเงินฉบับนี้จะสมบูรณ์ เมื่อมีลายเซ็นของผู้มีอำนาจและผู้รับเงิน และเช็คฉบับนี้ได้เรียกเก็บเงินจากธนาคารเรียบร้อยแล้ว</strong>
                     </div>
-
+                    <div class="receipt_invoice_detail">
+                        <strong
+                        >This receipt is valid only when signed by authorized and collector as well as the cheque is duly cleared.</strong>
+                    </div>
+                </div>
+                <!-- Signature -->
+                <div class="row" style="margin-top: 50px; page-break-inside: avoid;">
+                    <!-- Receipt -->
                     <div class="col-6 text-center">
-                        <p>ในนาม <span t-field="o.company_id.name" /></p>
                         <![CDATA[
                         &nbsp;
                         ]]>
-                        <p />
+                        <hr style="width: 70%; border-color: black; margin: auto;" />
+                        <strong>Collector</strong>
+                    </div>
+                    <div class="col-6 text-center">
                         <![CDATA[
                         &nbsp;
                         ]]>
+                        <hr style="width: 70%; border-color: black; margin: auto;" />
                         <strong>Authorized Signature</strong>
+                    </div>
+                </div>
+                <!-- Payment detail -->
+                <div
+                    class="text-left receipt_invoice_detail"
+                    style="page-break-inside: avoid; margin-top: 20px;"
+                >
+                    <div class="row">
+                        <!-- Invoice -->
+                        <div class="col-3">
+                            <span>ชำระโดย<br />Payment by</span>
+                        </div>
+                        <div class="col-2">
+                            <input type="radio" />
+                            <span>เงินสด<br /><![CDATA[&nbsp;&nbsp;]]>Cash</span>
+                        </div>
+                        <div class="col-2">
+                            <input type="radio" />
+                            <span>เช็ค<br /><![CDATA[&nbsp;&nbsp;]]>Cheque</span>
+                        </div>
+                        <div class="col-2">
+                            <input type="radio" />
+                            <span>โอน<br /><![CDATA[&nbsp;&nbsp;]]>Transfer</span>
+                        </div>
+                        <div class="col-3" />
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                        <div style="margin-right: 10px;">
+                            <![CDATA[
+                            จำนวนเงินบาท<br
+                            />Amount of money_________________________Baht
+                            ]]>
+                        </div>
+                        <div>
+                            <![CDATA[
+                            ธนาคาร<br
+                            />Bank_________________________
+                            ]]>
+                        </div>
+                        <div>
+                            <![CDATA[
+                            เช็คเลขที่<br
+                            />Cheque No._________________________
+                            ]]>
+                        </div>
+                        <div>
+                            <![CDATA[
+                            ลงวันที่<br
+                            />Date______/______/_________
+                            ]]>
+                        </div>
                     </div>
                 </div>
             </div>
