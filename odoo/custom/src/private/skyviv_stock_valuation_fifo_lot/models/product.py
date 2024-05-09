@@ -71,9 +71,10 @@ class ProductProduct(models.Model):
             all_candidates = self._get_all_candidates(
                 company, sort_by="lot_create_date"
             )
+            new_standard_price = False
             if all_candidates:
                 new_standard_price = all_candidates[0].unit_cost
-            else:
+            elif candidates:
                 new_standard_price = candidate.unit_cost
 
             # Update standard price
