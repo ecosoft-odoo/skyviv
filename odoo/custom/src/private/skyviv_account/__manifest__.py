@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "SKYVIV: Account Asset Management",
+    "name": "SKYVIV: Account",
     "summary": "Used to install related modules",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
@@ -10,9 +10,10 @@
     "author": "Ecosoft",
     "installable": True,
     "depends": [
-        "account_asset_management",
+        "account",
+        "l10n_th_account_tax",
     ],
     "data": [
-        "views/account_asset_views.xml",
+        "views/account_payment_views.xml",
     ],
 }
