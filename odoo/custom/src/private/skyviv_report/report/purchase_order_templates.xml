@@ -226,7 +226,7 @@
                             <div class="col-3" />
                             <div class="col-8 text-left">
                                 <p />
-                                <p>( MR.VIVATVONG VICHIT-VADAKAN )<br>Date:</br></p>
+                                <p>( <span t-field="o.approver.name" /> )<br>Date:</br></p>
                             </div>
                             <div class="col-1" />
                         </div>
