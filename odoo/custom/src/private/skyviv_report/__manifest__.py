@@ -13,13 +13,16 @@
         "account",
         "purchase",
         "sale",
+        "stock",
     ],
     "data": [
+        "data/paperformat.xml",
         "views/purchase_views.xml",
         "report/sale_report_templates.xml",
         "report/purchase_order_templates.xml",
         "report/report_payment_receipt_templates.xml",
         "report/report_invoice_template.xml",
+        "report/report_stockpicking_operations.xml",
         "report/report.xml",
     ],
 }
