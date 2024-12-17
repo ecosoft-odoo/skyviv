@@ -13,6 +13,7 @@
         "account",
         "purchase",
         "sale",
+        "stock",
     ],
     "data": [
         "views/purchase_views.xml",
@@ -20,6 +21,7 @@
         "report/purchase_order_templates.xml",
         "report/report_payment_receipt_templates.xml",
         "report/report_invoice_template.xml",
+        "report/report_stockpicking_operations.xml",
         "report/report.xml",
     ],
 }
