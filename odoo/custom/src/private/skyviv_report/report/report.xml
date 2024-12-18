@@ -90,6 +90,7 @@
             <field name="print_report_name">'Picking Operations - %s - %s' % (object.partner_id.name or '', object.name)</field>
             <field name="binding_model_id" ref="stock.model_stock_picking"/>
             <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="skyviv_report.paperformat_report_stockpicking_operations_skyviv" />
     </record>
 
 </odoo>

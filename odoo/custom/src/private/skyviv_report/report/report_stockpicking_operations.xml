@@ -4,18 +4,13 @@
         <template id="report_picking">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="web.external_layout" t-lang="o.partner_id.lang">
+                    <t t-call="web.external_layout">
                         <div class="page">
-                            <!-- header -->
-                            <div class="row">
-                                <div class="col-9" style="text-align: right; color: #E5A500; z-index:10;">
-                                    <span style='font-weigth:bold; font-size:82px;'>Delivery Order</span>
-                                </div>
-                                <div class="col-3" style="margin-top: 70px; margin-left:-70px;">
+                            <div class="row justify-content-end mb16">
+                                <div class="col-4" name="right_box">
                                     <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 100)" style="width:300px;height:50px;" alt="Barcode"/>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-6" name="div_outgoing_address">
                                     <div t-if="o.move_ids_without_package and o.move_ids_without_package[0].partner_id and o.move_ids_without_package[0].partner_id.id != o.partner_id.id">
@@ -41,13 +36,14 @@
                                     </div>
                                     <div t-if="o.partner_id" name="partner_header">
                                         <div t-field="o.partner_id"
-                                        t-options='{"widget": "contact", "fields": ["name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                           t-options='{"widget": "contact", "fields": ["name", "phone"], "no_marker": True, "phone_icons": True}'/>
                                         <p t-if="o.sudo().partner_id.vat"><t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="o.sudo().partner_id.vat"/></p>
                                     </div>
                                 </div>
                             </div>
                             <br/>
-                            <h1 t-field="o.name" class="mt0 float-left"/>
+                            <t t-set="display" t-value="'# '+o.name"/>
+                            <span><h1 class="mt0 float-left" style="color:#fa9e43">Delivery Order</h1><h1 t-esc="display" class="mt0 ml-2 float-left"/></span>
                             <div class="row mt48 mb32">
                                 <div t-if="o.origin" class="col-auto" name="div_origin">
                                     <strong>Order:</strong>
@@ -62,12 +58,11 @@
                                     <p t-field="o.scheduled_date"/>
                                 </div>
                             </div>
-                            <!-- TABLE-1 -->
                             <table class="table table-sm" t-if="o.move_line_ids and o.move_ids_without_package">
                                 <t t-set="has_barcode" t-value="any(move_line.product_id and move_line.product_id.sudo().barcode or move_line.package_id for move_line in o.move_line_ids)"/>
                                 <t t-set="has_serial_number" t-value="any(move_line.lot_id or move_line.lot_name for move_line in o.move_line_ids)" groups="stock.group_production_lot"/>
                                 <thead>
-                                    <tr>
+                                    <tr style="page-break-inside: avoid;">
                                         <th name="th_product">
                                             <strong>Product</strong>
                                         </th>
@@ -81,7 +76,7 @@
                                             <strong>To</strong>
                                         </th>
                                         <th name="th_serial_number" class="text-center" t-if="has_serial_number">
-                                        <strong>Lot/Serial Number</strong>
+                                           <strong>Lot/Serial Number</strong>
                                         </th>
                                         <th name="th_barcode" class="text-center" t-if="has_barcode">
                                             <strong>Product Barcode</strong>
@@ -135,9 +130,8 @@
                                             </tr>
                                         </t>
                                     </t>
-                                </tbody>
+                                  </tbody>
                             </table>
-                            <!-- TABLE-2 -->
                             <table class="table table-sm" t-if="o.package_level_ids and o.picking_type_entire_packs and o.state in ['assigned', 'done']">
                                 <thead>
                                     <tr style="page-break-inside: avoid;">
@@ -165,31 +159,41 @@
                             <p t-if="o.state in ['draft', 'waiting', 'confirmed'] or no_reserved_product"><i class="fa fa-exclamation-triangle" />
                                 All products could not be reserved. Click on the "Check Availability" button to try to reserve products.
                             </p>
-                            <p t-field="o.note"/>
+                            <span style="page-break-inside: avoid; color:black">Note <span t-field="o.note"></span></span>
 
                             <!-- footer -->
                             <div class="footer text-center">
-                                <div style="page-break-inside: avoid; padding-bottom: 80px;text-align:center; color: #E5A500;font-size:16px;">
-                                <div class="row">
-                                        <div class="col-4">
-                                            <span>............................................</span><br/>
-                                            <span><b>Goods Received By</b></span><br/>
-                                            <span><b>DATE......../......../......../</b></span><br/>
+                                <div style="page-break-inside: avoid; padding-bottom: 10px; text-align:center; font-size:14px;">
+                                    <div class="row" style="height:170px; background-color:#f3f3f3;">
+                                        <div class="col-3" style="border: 1px solid black;">
+                                            <div class="mt-2" style="text-align:left; font-size:12px; color:#979797">
+                                                <span>The goods receiced as per above in the good order and condition</span>
+                                            </div>
+                                            <div style="padding-top: 46px;">
+                                                <span>............................................</span><br/>
+                                                <span><b>Received By</b></span><br/>
+                                                <span><b>DATE......../......../......../</b></span><br/>
+                                            </div>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-3" style="padding-top: 90px; border-top: 1px solid black;border-bottom: 1px solid black;">
                                             <span>............................................</span><br/>
                                             <span><b>Delivery By</b></span><br/>
                                             <span><b>DATE......../......../......../</b></span><br/>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-3" style="padding-top: 90px; border-top: 1px solid black;border-bottom: 1px solid black;">
                                             <span>............................................</span><br/>
-                                            <span><b>Approved By</b></span><br/>
+                                            <span><b>Checked By</b></span><br/>
+                                            <span><b>DATE......../......../......../</b></span><br/>
+                                        </div>
+                                        <div class="col-3" style="padding-top: 90px; border: 1px solid black;">
+                                            <span>............................................</span><br/>
+                                            <span><b>Authorized Signature</b></span><br/>
                                             <span><b>DATE......../......../......../</b></span><br/>
                                         </div>
                                     </div>
                                 </div>
                                 <div style="border-top: 1px solid #C5C5C5;"></div>
-                                <div style="padding-bottom: 40px;" t-if="report_type == 'pdf'" class="text-muted">
+                                <div style="padding-bottom: 20px;" t-if="report_type == 'pdf'" class="text-muted">
                                     Page: <span class="page" /> / <span class="topage" />
                                 </div>
                             </div>

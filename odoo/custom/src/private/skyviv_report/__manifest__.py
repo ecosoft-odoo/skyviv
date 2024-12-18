@@ -16,6 +16,7 @@
         "stock",
     ],
     "data": [
+        "data/paperformat.xml",
         "views/purchase_views.xml",
         "report/sale_report_templates.xml",
         "report/purchase_order_templates.xml",
