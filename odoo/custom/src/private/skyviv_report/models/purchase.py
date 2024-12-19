@@ -9,6 +9,7 @@ class PurchaseOrder(models.Model):
     approver = fields.Many2one(
         comodel_name='res.partner',
         required=True,
+        domain=[('purchase_approver','=', True)],
         default=lambda self: self.env['res.partner'].search([
             ('name', 'ilike', 'Vivatvong Vichit-Vadakan')], limit=1 ).id
     )
