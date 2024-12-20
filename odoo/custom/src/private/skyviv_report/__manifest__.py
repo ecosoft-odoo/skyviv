@@ -19,6 +19,7 @@
         "data/paperformat.xml",
         "views/purchase_views.xml",
         "views/res_partner_view.xml",
+        "views/stock_picking_views.xml",
         "report/sale_report_templates.xml",
         "report/purchase_order_templates.xml",
         "report/report_payment_receipt_templates.xml",
