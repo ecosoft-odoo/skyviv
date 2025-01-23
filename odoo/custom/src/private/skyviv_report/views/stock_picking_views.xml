@@ -7,6 +7,9 @@
             <xpath expr="//field[@name='group_id']" position="after">
                 <field name="description" />
             </xpath>
+            <xpath expr="//page[@name='operations']/field[@name='move_ids_without_package']/tree/field[@name='company_id']" position="before">
+                <field name="sequence" widget="handle" />
+            </xpath>
         </field>
     </record>
 </odoo>
