@@ -8,3 +8,4 @@ class AccountMove(models.Model):
     _inherit = "account.payment"
 
     clearing_advance = fields.Boolean()
+    wht_refund = fields.Boolean(string="Withholding Tax Refund")

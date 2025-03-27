@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <field name="tax_invoice_move_ids" position="after">
                 <field name="clearing_advance" />
+                <field name="wht_refund" />
             </field>
         </field>
     </record>
