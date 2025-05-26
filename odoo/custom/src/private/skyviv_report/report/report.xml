@@ -14,6 +14,7 @@
         <field name="print_report_name">
             (object.state in ('draft', 'sent') and 'Request for Quotation - %s' % (object.name) or
             'Purchase Order - %s' % (object.name))</field>
+        <field name="paperformat_id" ref="skyviv_report.paperformat_report_purchase_order_skyviv" />
     </record>
 
     <!-- for print Payment receipt -->
