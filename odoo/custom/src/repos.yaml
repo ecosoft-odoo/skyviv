@@ -137,3 +137,12 @@ web:
   target: origin $ODOO_VERSION
   merges:
     - origin $ODOO_VERSION
+
+sale-workflow:
+  defaults:
+    depth: $DEPTH_MERGE
+  remotes:
+    origin: https://github.com/OCA/sale-workflow.git
+  target: origin $ODOO_VERSION
+  merges:
+    - origin $ODOO_VERSION

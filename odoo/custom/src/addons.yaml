@@ -51,3 +51,6 @@ purchase-workflow:
   
 web:
   - web_environment_ribbon
+
+sale-workflow:
+  - sale_force_invoiced
