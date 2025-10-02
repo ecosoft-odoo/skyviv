@@ -95,6 +95,8 @@
                 <thead>
                     <tr>
                         <th name="th_description" class="text-center"><strong
+                                >Product</strong></th>
+                        <th name="th_description" class="text-center"><strong
                                 >Description</strong></th>
                         <th name="th_quantity" class="text-center"><strong
                                 >Qty</strong></th>
@@ -122,6 +124,9 @@
                                 t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''"
                             >
                             <t t-if="not line.display_type">
+                                <td id="product_name">
+                                    <span t-field="line.product_id.name" />
+                                </td>
                                 <td id="product">
                                     <span t-field="line.name" />
                                 </td>
