@@ -25,6 +25,11 @@
         <field name="print_report_name">'Receipt - %s' % (object.name)</field>
     </record>
 
+    <record id="stock.action_report_delivery" model="ir.actions.report">
+        <field name="report_name">skyviv_report.report_deliveryslip_skyviv</field>
+        <field name="report_file">skyviv_report.report_deliveryslip_skyviv</field>
+    </record>
+
     <!-- for print Payment receipt/tax invoice -->
     <record id="action_report_payment_receipt_tax_invoice" model="ir.actions.report">
         <field name="name">Receipt/Tax Invoice</field>
