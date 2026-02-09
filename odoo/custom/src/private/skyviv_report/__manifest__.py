@@ -25,6 +25,7 @@
         "report/report_payment_receipt_templates.xml",
         "report/report_invoice_template.xml",
         "report/report_stockpicking_operations.xml",
+        "report/report_deliveryslip.xml",
         "report/report.xml",
     ],
 }
