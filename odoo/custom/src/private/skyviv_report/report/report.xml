@@ -25,9 +25,16 @@
         <field name="print_report_name">'Receipt - %s' % (object.name)</field>
     </record>
 
-    <record id="stock.action_report_delivery" model="ir.actions.report">
+    <!-- for print Delivery Slip -->
+    <record id="action_report_delivery_skyviv" model="ir.actions.report">
+        <field name="name">Delivery Slip</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
         <field name="report_name">skyviv_report.report_deliveryslip_skyviv</field>
         <field name="report_file">skyviv_report.report_deliveryslip_skyviv</field>
+        <field name="print_report_name">'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)</field>
+        <field name="binding_model_id" ref="model_stock_picking"/>
+        <field name="binding_type">report</field>
     </record>
 
     <!-- for print Payment receipt/tax invoice -->
